@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="site-config.js"></script>
 <style>
   :root{
     color-scheme: light;
@@ -287,6 +288,19 @@
   @media (max-width:760px){ .site-footer{ grid-template-columns:1fr 1fr; } }
   .site-footer h4{ font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); margin-bottom:12px; font-weight:700; }
   .site-footer li{ list-style:none; margin-bottom:8px; }
+  .site-footer li a{ color:var(--ink-soft); cursor:pointer; }
+  .site-footer li a:hover{ color:var(--forest); text-decoration:underline; }
+
+  /* ===== Info modal (footer policy links) ===== */
+  .info-overlay{ position:fixed; inset:0; background:rgba(15,25,17,.55); z-index:250; display:flex; align-items:center; justify-content:center; padding:16px; opacity:0; pointer-events:none; transition:opacity .2s ease; }
+  .info-overlay.show{ opacity:1; pointer-events:auto; }
+  .info-modal{ background:var(--card); border-radius:18px; max-width:520px; width:100%; max-height:80vh; overflow-y:auto; padding:30px 28px; position:relative; box-shadow:0 30px 70px rgba(0,0,0,.35); }
+  .info-modal h3{ font-size:21px; font-weight:600; padding-right:20px; }
+  .info-modal p{ font-size:13.5px; color:var(--ink-soft); line-height:1.65; margin-top:12px; }
+  .info-modal .close{ position:absolute; top:14px; right:14px; width:30px;height:30px; border-radius:50%; border:1px solid var(--line); background:var(--paper); font-size:15px; cursor:pointer; color:var(--muted); }
+  .faq-item{ margin-top:14px; }
+  .faq-item .q{ font-weight:700; font-size:13.5px; }
+  .faq-item .a{ font-size:13px; color:var(--ink-soft); margin-top:4px; line-height:1.6; }
   .foot-bottom{ margin-top:28px; padding-top:16px; border-top:1px solid var(--line); font-size:12px; color:var(--muted); grid-column:1/-1; }
 
   /* ============================================================ */
@@ -331,6 +345,16 @@
   .tab-panel{ padding-top:18px; font-size:14px; line-height:1.7; color:var(--ink-soft); max-width:60ch; }
 
   .related{ padding-bottom:50px; }
+
+  /* ===== Brand reel embed ===== */
+  .reel-section{ padding-block:10px 46px; }
+  .reel-wrap{ display:grid; grid-template-columns:1.15fr 0.85fr; gap:36px; align-items:center; }
+  @media (max-width:860px){ .reel-wrap{ grid-template-columns:1fr; } }
+  .reel-frame{ position:relative; border-radius:20px; overflow:hidden; box-shadow:var(--shadow); aspect-ratio:16/10; background:#0b120d; }
+  .reel-frame iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .reel-copy h2{ font-size:27px; font-weight:500; letter-spacing:-.005em; max-width:18ch; }
+  .reel-copy p{ font-size:14.5px; color:var(--ink-soft); margin-top:12px; line-height:1.65; max-width:44ch; }
+  .reel-copy .btn{ margin-top:18px; }
 </style>
 </head>
 <body>
@@ -338,7 +362,7 @@
 <!-- =================== STOREFRONT =================== -->
 <div class="view active" id="view-storefront">
   <div class="offer-marquee">
-    <div class="track">
+    <div class="track" id="marqueeTrack">
       <span>🎉 DON'T MISS OUT!</span><span>·</span>
       <span>VALID FROM 1ST SEPTEMBER TO 15TH OCTOBER 2026</span><span>·</span>
       <span>AUSPICIOUS SAVINGS AWAIT!</span><span>·</span>
@@ -348,8 +372,8 @@
   </div>
   <div class="util-bar">
     <div style="max-width:1240px;margin:0 auto;width:100%;display:flex;justify-content:space-between;padding-inline:16px;">
-      <span>Free UK delivery on orders over <b style="color:#FFD9A0;">£30</b></span>
-      <div class="util-links"><a href="#">Track Order</a><a href="#">Wholesale</a><a href="#">Help</a></div>
+      <span id="deliveryText">Free UK delivery on orders over <b style="color:#FFD9A0;">£30</b></span>
+      <div class="util-links"><a href="#" onclick="showToast('Enter your order number by email to admin@heavenlyecoserve.co.uk and we\'ll send tracking.'); return false;">Track Order</a><a href="#wholesale" onclick="scrollToId('wholesale'); return false;">Wholesale</a><a href="#" onclick="openModal('faq'); return false;">Help</a></div>
     </div>
   </div>
   <div class="site-header">
@@ -402,6 +426,20 @@
     <div class="hero-art">
       <div class="hero-photo"><img src="images/amisol-hero-bruschetta.jpg" alt="Bruschetta served on a palm leaf plate"></div>
       <div class="hero-badge"><div class="n">0%</div><div class="t">plastic in every plate we sell</div></div>
+    </div>
+  </section>
+
+  <section class="reel-section" id="reelSection">
+    <div class="reel-wrap">
+      <div class="reel-frame">
+        <iframe src="motion_reel.html" title="Heavenly EcoServe brand reel" loading="lazy"></iframe>
+      </div>
+      <div class="reel-copy">
+        <div class="eyebrow"><span class="dot"></span>In motion</div>
+        <h2 id="reelHeadline">Watch: The Heavenly EcoServe Story</h2>
+        <p id="reelCaption">A calm, 24-second look at what makes our tableware different — real product photography, no stock footage.</p>
+        <a class="btn btn-ghost" href="motion_reel.html" target="_blank" rel="noopener">Watch full screen ↗</a>
+      </div>
     </div>
   </section>
 
@@ -578,10 +616,26 @@
     <div>
       <div class="logo" style="margin-bottom:10px;"><img src="images/heavenly-logo.png" alt="Heavenly EcoServe" class="logo-img"></div>
       <p style="max-width:32ch; color:var(--muted);">19 The Broadway, Oadby, Leicester LE2 2HF, United Kingdom</p>
+      <p style="margin-top:8px;"><a href="mailto:heavenlyecoserve@hotmail.com" id="footerEmail" style="color:var(--forest); font-weight:600;">heavenlyecoserve@hotmail.com</a></p>
     </div>
-    <div><h4>Shop</h4><ul><li>Palm Leaf</li><li>Bagasse</li><li>Wood Cutlery</li><li>Bundles</li></ul></div>
-    <div><h4>Company</h4><ul><li>About us</li><li>Wholesale</li><li>Blog</li><li>Contact</li></ul></div>
-    <div><h4>Support</h4><ul><li>Track order</li><li>Returns policy</li><li>Delivery info</li><li>FAQs</li></ul></div>
+    <div><h4>Shop</h4><ul>
+      <li><a href="#rail-featured" onclick="filterProducts('round,square','Palm Leaf Plates'); return false;">Palm Leaf Plates</a></li>
+      <li><a href="#rail-featured" onclick="filterProducts('bowl','Bowls'); return false;">Bowls</a></li>
+      <li><a href="#rail-featured" onclick="filterProducts('compartment','Compartment Plates'); return false;">Compartment Plates</a></li>
+      <li><a href="#rail-featured" onclick="filterProducts('cutlery,spoon','Brichwood Cutlery &amp; Spoons'); return false;">Brichwood Cutlery</a></li>
+    </ul></div>
+    <div><h4>Company</h4><ul>
+      <li><a href="#our-story" onclick="scrollToId('our-story'); return false;">About us</a></li>
+      <li><a href="#wholesale" onclick="scrollToId('wholesale'); return false;">Wholesale</a></li>
+      <li><a href="#" onclick="showToast('Our blog is coming soon.'); return false;">Blog</a></li>
+      <li><a href="mailto:heavenlyecoserve@hotmail.com">Contact</a></li>
+    </ul></div>
+    <div><h4>Support</h4><ul>
+      <li><a href="#" onclick="openModal('track'); return false;">Track order</a></li>
+      <li><a href="#" onclick="openModal('returns'); return false;">Returns policy</a></li>
+      <li><a href="#" onclick="openModal('delivery'); return false;">Delivery info</a></li>
+      <li><a href="#" onclick="openModal('faq'); return false;">FAQs</a></li>
+    </ul></div>
     <div class="foot-bottom">© 2026 Heavenly EcoServe Ltd. All rights reserved.</div>
   </footer>
 </div>
@@ -714,6 +768,33 @@
 
 <div class="toast" id="toast"></div>
 
+<div class="info-overlay" id="infoOverlay" onclick="if(event.target===this) closeModal();">
+  <div class="info-modal">
+    <button class="close" onclick="closeModal()">✕</button>
+    <div id="infoTrack" class="info-body" style="display:none;">
+      <h3>Track your order</h3>
+      <p>We don't have live order tracking wired up on this preview site yet. Once you've placed a real order, email your order number to <a href="mailto:heavenlyecoserve@hotmail.com">heavenlyecoserve@hotmail.com</a> and we'll send you a delivery update directly.</p>
+    </div>
+    <div id="infoReturns" class="info-body" style="display:none;">
+      <h3>Returns policy</h3>
+      <p>Unopened packs can be returned within 30 days of delivery for a full refund — just get in touch first so we can arrange it.</p>
+      <p>Because our tableware is compostable and food-safe, we can't accept opened packs back for hygiene reasons, but if anything arrives damaged or faulty we'll replace or refund it, no questions asked.</p>
+    </div>
+    <div id="infoDelivery" class="info-body" style="display:none;">
+      <h3>Delivery info</h3>
+      <p>Free UK delivery on orders over £30. Orders are dispatched within 1 working day from our Leicestershire warehouse, with standard UK delivery taking 2–3 working days.</p>
+      <p>Wholesale and pallet orders may take a little longer — we'll always confirm a dispatch date when you order.</p>
+    </div>
+    <div id="infoFaq" class="info-body" style="display:none;">
+      <h3>Frequently asked questions</h3>
+      <div class="faq-item"><div class="q">Is it really compostable at home?</div><div class="a">Yes — our palm leaf range breaks down in a normal home compost bin in 60–90 days, no industrial facility required.</div></div>
+      <div class="faq-item"><div class="q">Why does it cost more than paper or plastic plates?</div><div class="a">You're paying for a plate that holds up to hot, wet and oily food without a plastic lining — and composts at home afterwards instead of sitting in landfill.</div></div>
+      <div class="faq-item"><div class="q">Do you deliver outside the UK?</div><div class="a">Not yet — we currently ship within the UK only. Get in touch if you're a trade buyer looking to import in bulk.</div></div>
+      <div class="faq-item"><div class="q">Still have a question?</div><div class="a">Email us at <a href="mailto:heavenlyecoserve@hotmail.com">heavenlyecoserve@hotmail.com</a> and we'll get back to you.</div></div>
+    </div>
+  </div>
+</div>
+
 <script>
 (function(){
   function showView(name){
@@ -736,6 +817,39 @@
     clearTimeout(toastTimer);
     toastTimer = setTimeout(function(){ t.classList.remove('show'); }, 2600);
   };
+
+  var infoOverlay = document.getElementById('infoOverlay');
+  window.openModal = function(which){
+    document.querySelectorAll('.info-body').forEach(function(b){ b.style.display = 'none'; });
+    var el = document.getElementById('info' + which.charAt(0).toUpperCase() + which.slice(1));
+    if(el) el.style.display = 'block';
+    infoOverlay.classList.add('show');
+  };
+  window.closeModal = function(){ infoOverlay.classList.remove('show'); };
+
+  // Apply admin-editable content (see site-config.js). Falls back to the
+  // hardcoded defaults above if HESConfig isn't loaded or nothing's saved yet.
+  if(typeof HESConfig !== 'undefined'){
+    var cfg = HESConfig.load();
+    var reelSection = document.getElementById('reelSection');
+    if(reelSection) reelSection.style.display = cfg.reelEnabled ? '' : 'none';
+    var reelH = document.getElementById('reelHeadline'); if(reelH) reelH.textContent = cfg.reelHeadline;
+    var reelC = document.getElementById('reelCaption'); if(reelC) reelC.textContent = cfg.reelCaption;
+    var marqueeTrack = document.getElementById('marqueeTrack');
+    if(marqueeTrack && cfg.marqueeText !== HESConfig.DEFAULTS.marqueeText){
+      marqueeTrack.textContent = cfg.marqueeText;
+    }
+    var deliveryEl = document.getElementById('deliveryText');
+    if(deliveryEl && cfg.deliveryText !== HESConfig.DEFAULTS.deliveryText){
+      deliveryEl.textContent = cfg.deliveryText;
+    }
+    document.querySelectorAll('a[href*="heavenlyecoserve@hotmail.com"]').forEach(function(a){
+      var raw = a.getAttribute('href');
+      a.setAttribute('href', raw.replace('heavenlyecoserve@hotmail.com', cfg.contactEmail));
+    });
+    var footerEmail = document.getElementById('footerEmail');
+    if(footerEmail){ footerEmail.textContent = cfg.contactEmail; }
+  }
 
   var filterStatus = document.getElementById('filterStatus');
   var filterLabel = document.getElementById('filterLabel');

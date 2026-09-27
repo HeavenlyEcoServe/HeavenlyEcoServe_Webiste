@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="site-config.js"></script>
 <style>
   :root{
     color-scheme: light;
@@ -351,6 +352,8 @@
 
   .internal-banner{ margin-inline:-16px; padding:10px 16px; background:repeating-linear-gradient(135deg, #3A1010, #3A1010 12px, #4A1414 12px, #4A1414 24px); color:#FDEBEB; font-size:12px; font-weight:700; text-align:center; letter-spacing:.02em; }
   @media (min-width:1272px){ .internal-banner{ margin-inline: calc(-1 * max(16px, calc((100% - 1240px)/2))); padding-inline: max(16px, calc((100% - 1240px)/2)); } }
+  .admin-toast{ position:fixed; left:50%; bottom:28px; transform:translateX(-50%) translateY(20px); background:var(--forest-deep); color:#F4F1E4; font-size:13px; font-weight:500; padding:12px 20px; border-radius:99px; box-shadow:var(--shadow); z-index:300; opacity:0; pointer-events:none; transition:all .25s ease; max-width:90vw; text-align:center; }
+  .admin-toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
 </style>
 </head>
 <body>
@@ -387,7 +390,7 @@
 
       <div class="admin-nav-group">Homepage</div>
       <div class="admin-link"><span class="ic">▦</span>Homepage Sections</div>
-      <div class="admin-link"><span class="ic">≡</span>Homepage Marquee</div>
+      <div class="admin-link" data-target="siteContentPanel"><span class="ic">≡</span>Homepage Marquee</div>
       <div class="admin-link"><span class="ic">▭</span>Homepage Intro</div>
       <div class="admin-link"><span class="ic">◔</span>Home Pages</div>
       <div class="admin-link"><span class="ic">✦</span>Festival Pages</div>
@@ -408,7 +411,7 @@
       <div class="admin-nav-group">Forms</div>
       <div class="admin-link"><span class="ic">✉</span>Contact Forms</div>
       <div class="admin-link"><span class="ic">☎</span>Callback Response</div>
-      <div class="admin-link"><span class="ic">⚙</span>Contact Settings</div>
+      <div class="admin-link" data-target="siteContentPanel"><span class="ic">⚙</span>Contact Settings</div>
 
       <div class="admin-nav-group">Pages</div>
       <div class="admin-link"><span class="ic">→</span>Auth Page</div>
@@ -425,7 +428,7 @@
       <div class="admin-link"><span class="ic">▭</span>Banner Pages</div>
       <div class="admin-link"><span class="ic">▭</span>Page Banners</div>
       <div class="admin-link"><span class="ic">%</span>Coupon</div>
-      <div class="admin-link"><span class="ic">▭</span>Signup Popup</div>
+      <div class="admin-link" data-target="siteContentPanel"><span class="ic">▭</span>Signup Popup</div>
       <div class="admin-link"><span class="ic">≡</span>Blog Posts</div>
       <div class="admin-link"><span class="ic">◔</span>Blog Authors</div>
       <div class="admin-link"><span class="ic">◈</span>Blog Categories</div>
@@ -472,6 +475,37 @@
         <div style="display:flex;gap:8px;align-items:center;">
           <span class="link" style="cursor:pointer;">&#8635; Refresh</span>
           <span class="link" style="color:var(--muted);cursor:pointer;">Preview Demo Data</span>
+        </div>
+      </div>
+
+      <div class="panel full-row" id="siteContentPanel" style="border:1.5px solid var(--forest); background:var(--forest-tint);">
+        <div class="addon-tag" style="color:var(--forest);">● Live control — this panel actually works</div>
+        <h3 style="margin-bottom:4px;">Homepage &amp; Reel Settings</h3>
+        <div class="sub" style="max-width:680px; margin-bottom:16px;">Edit and hit Save to update the live site <b>in this browser</b> — open "Preview live site" below to see it. Because this is a static site with no server, saves here won't reach other visitors' devices; for that you'd need a real backend, which Claude can help set up on request.</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <label style="font-size:12.5px;font-weight:700;display:flex;align-items:center;gap:8px;">
+            <input type="checkbox" id="cfgReelEnabled" style="width:16px;height:16px;">Show brand reel on homepage
+          </label>
+          <label style="font-size:12.5px;font-weight:700;">Contact email
+            <input type="email" id="cfgContactEmail" style="display:block;width:100%;margin-top:6px;padding:9px 12px;border:1px solid var(--line);border-radius:9px;font-size:13px;font-family:inherit;">
+          </label>
+          <label style="font-size:12.5px;font-weight:700;grid-column:1/-1;">Reel headline
+            <input type="text" id="cfgReelHeadline" style="display:block;width:100%;margin-top:6px;padding:9px 12px;border:1px solid var(--line);border-radius:9px;font-size:13px;font-family:inherit;">
+          </label>
+          <label style="font-size:12.5px;font-weight:700;grid-column:1/-1;">Reel caption
+            <textarea id="cfgReelCaption" rows="2" style="display:block;width:100%;margin-top:6px;padding:9px 12px;border:1px solid var(--line);border-radius:9px;font-size:13px;font-family:inherit;"></textarea>
+          </label>
+          <label style="font-size:12.5px;font-weight:700;grid-column:1/-1;">Promo marquee text (the maroon scrolling banner)
+            <textarea id="cfgMarqueeText" rows="2" style="display:block;width:100%;margin-top:6px;padding:9px 12px;border:1px solid var(--line);border-radius:9px;font-size:13px;font-family:inherit;"></textarea>
+          </label>
+          <label style="font-size:12.5px;font-weight:700;grid-column:1/-1;">Delivery banner text (top utility bar)
+            <input type="text" id="cfgDeliveryText" style="display:block;width:100%;margin-top:6px;padding:9px 12px;border:1px solid var(--line);border-radius:9px;font-size:13px;font-family:inherit;">
+          </label>
+        </div>
+        <div style="display:flex;gap:10px;margin-top:18px;flex-wrap:wrap;">
+          <button class="restock-btn" style="padding:9px 18px;" onclick="saveSiteConfig()">Save changes</button>
+          <button class="restock-btn" style="background:var(--muted);padding:9px 18px;" onclick="resetSiteConfig()">Reset to defaults</button>
+          <a class="restock-btn" style="background:var(--forest-deep);text-decoration:none;padding:9px 18px;display:inline-flex;align-items:center;" href="index.html" target="_blank" rel="noopener">Preview live site ↗</a>
         </div>
       </div>
 
@@ -587,6 +621,8 @@
   </div>
 </div>
 
+<div class="admin-toast" id="adminToast"></div>
+
 <script>
 (function(){
   document.getElementById('view-admin').classList.add('active');
@@ -594,8 +630,52 @@
     l.addEventListener('click', function(){
       document.querySelectorAll('.admin-link').forEach(function(x){ x.classList.remove('active'); });
       l.classList.add('active');
+      if(l.dataset.target){
+        document.getElementById(l.dataset.target).scrollIntoView({behavior:'smooth', block:'start'});
+      }
     });
   });
+
+  var toastTimer;
+  function showAdminToast(msg){
+    var t = document.getElementById('adminToast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ t.classList.remove('show'); }, 2600);
+  }
+
+  function fillForm(cfg){
+    document.getElementById('cfgReelEnabled').checked = cfg.reelEnabled;
+    document.getElementById('cfgContactEmail').value = cfg.contactEmail;
+    document.getElementById('cfgReelHeadline').value = cfg.reelHeadline;
+    document.getElementById('cfgReelCaption').value = cfg.reelCaption;
+    document.getElementById('cfgMarqueeText').value = cfg.marqueeText;
+    document.getElementById('cfgDeliveryText').value = cfg.deliveryText;
+  }
+
+  if(typeof HESConfig !== 'undefined'){
+    fillForm(HESConfig.load());
+  }
+
+  window.saveSiteConfig = function(){
+    var cfg = {
+      reelEnabled: document.getElementById('cfgReelEnabled').checked,
+      contactEmail: document.getElementById('cfgContactEmail').value.trim(),
+      reelHeadline: document.getElementById('cfgReelHeadline').value.trim(),
+      reelCaption: document.getElementById('cfgReelCaption').value.trim(),
+      marqueeText: document.getElementById('cfgMarqueeText').value.trim(),
+      deliveryText: document.getElementById('cfgDeliveryText').value.trim()
+    };
+    HESConfig.save(cfg);
+    showAdminToast('Saved — open "Preview live site" in this browser to see it.');
+  };
+
+  window.resetSiteConfig = function(){
+    HESConfig.reset();
+    fillForm(HESConfig.load());
+    showAdminToast('Reset to defaults.');
+  };
 })();
 </script>
 </body>
