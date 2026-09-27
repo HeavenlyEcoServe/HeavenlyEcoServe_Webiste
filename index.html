@@ -411,8 +411,8 @@
   <section class="hero">
     <div>
       <div class="eyebrow"><span class="dot"></span>Independently UK-owned &middot; Leicestershire</div>
-      <h1>Set the table<br>without the <em>guilt</em>.</h1>
-      <p class="lede">Eight plates and bowls pressed from fallen areca palm leaves — no trees cut, no plastic lining, no chemicals. Sturdy enough for a Sunday roast, gone completely within 60&ndash;90 days.</p>
+      <h1 id="heroHeadline">Set the table<br>without the <em>guilt</em>.</h1>
+      <p class="lede" id="heroSub">Eight plates and bowls pressed from fallen areca palm leaves — no trees cut, no plastic lining, no chemicals. Sturdy enough for a Sunday roast, gone completely within 60&ndash;90 days.</p>
       <div class="hero-ctas">
         <button class="btn btn-primary" type="button" onclick="scrollToId('rail-featured')">Shop The Range →</button>
         <button class="btn btn-ghost" type="button" onclick="scrollToId('wholesale')">Shop Wholesale</button>
@@ -498,52 +498,52 @@
     <div class="block-head"><h2>Featured Products &amp; Top Rated — Our Full Range</h2><span class="see-all">View all 10 →</span></div>
     <div class="filter-status" id="filterStatus" style="display:none;">Showing: <span id="filterLabel"></span><button type="button" onclick="clearFilter()">Clear ✕</button></div>
     <div class="prod-grid" id="prodGrid">
-      <div class="prod-card" data-cat="round" data-name="10 round palm leaf plate" onclick="showView('product')">
+      <div class="prod-card" data-id="p-10rd" data-cat="round" data-name="10 round palm leaf plate" onclick="showView('product')">
         <div class="prod-thumb"><span class="prod-tag">Bestseller</span><img src="images/amisol-10in-round-plate.jpg" alt="10 inch round palm leaf plate"></div>
         <div class="prod-body"><div class="prod-mat">Palm Leaf</div><div class="prod-name">10&Prime; Round Palm Leaf Plate — 25 Pack</div>
           <div class="prod-row"><span class="prod-price">£14.99</span><button class="add-btn">+</button></div></div>
       </div>
-      <div class="prod-card" data-cat="square" data-name="10 square palm leaf plate">
+      <div class="prod-card" data-id="p-10sq" data-cat="square" data-name="10 square palm leaf plate">
         <div class="prod-thumb"><img src="images/amisol-10in-square-plate.jpg" alt="10 inch square palm leaf plate"></div>
         <div class="prod-body"><div class="prod-mat">Palm Leaf</div><div class="prod-name">10&Prime; Square Palm Leaf Plate — 25 Pack</div>
           <div class="prod-row"><span class="prod-price">£14.99</span><button class="add-btn">+</button></div></div>
       </div>
-      <div class="prod-card" data-cat="round" data-name="9 round palm leaf plate">
+      <div class="prod-card" data-id="p-9rd" data-cat="round" data-name="9 round palm leaf plate">
         <div class="prod-thumb"><img src="images/amisol-9in-round-plate.jpg" alt="9 inch round palm leaf plate"></div>
         <div class="prod-body"><div class="prod-mat">Palm Leaf</div><div class="prod-name">9&Prime; Round Palm Leaf Plate — 25 Pack</div>
           <div class="prod-row"><span class="prod-price">£12.99</span><button class="add-btn">+</button></div></div>
       </div>
-      <div class="prod-card" data-cat="square" data-name="9 square palm leaf plate">
+      <div class="prod-card" data-id="p-9sq" data-cat="square" data-name="9 square palm leaf plate">
         <div class="prod-thumb"><img src="images/amisol-9in-square-plate.jpg" alt="9 inch square palm leaf plate"></div>
         <div class="prod-body"><div class="prod-mat">Palm Leaf</div><div class="prod-name">9&Prime; Square Palm Leaf Plate — 25 Pack</div>
           <div class="prod-row"><span class="prod-price">£12.99</span><button class="add-btn">+</button></div></div>
       </div>
-      <div class="prod-card" data-cat="bowl" data-name="5.5 square palm leaf bowl">
+      <div class="prod-card" data-id="p-55bowl" data-cat="bowl" data-name="5.5 square palm leaf bowl">
         <div class="prod-thumb"><img src="images/amisol-55in-square-bowl.jpg" alt="5.5 inch square palm leaf bowl"></div>
         <div class="prod-body"><div class="prod-mat">Palm Leaf</div><div class="prod-name">5.5&Prime; Square Palm Leaf Bowl — 25 Pack</div>
           <div class="prod-row"><span class="prod-price">£12.99</span><button class="add-btn">+</button></div></div>
       </div>
-      <div class="prod-card" data-cat="bowl" data-name="16cm round palm leaf bowl">
+      <div class="prod-card" data-id="p-16bowl" data-cat="bowl" data-name="16cm round palm leaf bowl">
         <div class="prod-thumb"><span class="prod-tag">New</span><img src="images/amisol-16cm-round-bowl.jpg" alt="16cm round palm leaf bowl"></div>
         <div class="prod-body"><div class="prod-mat">Palm Leaf</div><div class="prod-name">16cm Round Palm Leaf Bowl — 25 Pack</div>
           <div class="prod-row"><span class="prod-price">£13.49</span><button class="add-btn">+</button></div></div>
       </div>
-      <div class="prod-card" data-cat="compartment party" data-name="12 4 compartment party plate">
+      <div class="prod-card" data-id="p-4cp" data-cat="compartment party" data-name="12 4 compartment party plate">
         <div class="prod-thumb"><span class="prod-tag">New</span><img src="images/amisol-12in-4cp-plate.jpg" alt="12 inch 4 compartment palm leaf plate"></div>
         <div class="prod-body"><div class="prod-mat">Palm Leaf</div><div class="prod-name">12&Prime; 4-Compartment Party Plate — 25 Pack</div>
           <div class="prod-row"><span class="prod-price">£23.99</span><button class="add-btn">+</button></div></div>
       </div>
-      <div class="prod-card" data-cat="compartment" data-name="10 3 compartment plate">
+      <div class="prod-card" data-id="p-3cp" data-cat="compartment" data-name="10 3 compartment plate">
         <div class="prod-thumb"><img src="images/amisol-10in-3cp-plate.jpg" alt="10 inch 3 compartment palm leaf plate"></div>
         <div class="prod-body"><div class="prod-mat">Palm Leaf</div><div class="prod-name">10&Prime; 3-Compartment Plate — 25 Pack</div>
           <div class="prod-row"><span class="prod-price">£14.49</span><button class="add-btn">+</button></div></div>
       </div>
-      <div class="prod-card" data-cat="cutlery" data-name="brichwood cutlery set">
+      <div class="prod-card" data-id="p-cutlery" data-cat="cutlery" data-name="brichwood cutlery set">
         <div class="prod-thumb"><span class="prod-tag">New</span><img src="images/brand-birchwood-cutlery-set.jpg" alt="Brichwood cutlery set"></div>
         <div class="prod-body"><div class="prod-mat">Brichwood</div><div class="prod-name">Brichwood Cutlery Set — Knife, Fork &amp; Spoon</div>
           <div class="prod-row"><span class="prod-price">£6.99</span><button class="add-btn">+</button></div></div>
       </div>
-      <div class="prod-card" data-cat="spoon" data-name="palm leaf soup spoon">
+      <div class="prod-card" data-id="p-spoon" data-cat="spoon" data-name="palm leaf soup spoon">
         <div class="prod-thumb"><span class="prod-tag">New</span><img src="images/brand-palm-leaf-soup-spoon.jpg" alt="Palm leaf soup spoon"></div>
         <div class="prod-body"><div class="prod-mat">Palm Leaf</div><div class="prod-name">Palm Leaf Soup Spoon — 25 Pack</div>
           <div class="prod-row"><span class="prod-price">£8.99</span><button class="add-btn">+</button></div></div>
@@ -575,8 +575,8 @@
     <div class="story">
       <div>
         <div class="eyebrow"><span class="dot"></span>Why buy only from us</div>
-        <h2>We got tired of choosing between "eco" and "actually works."</h2>
-        <p>Heavenly EcoServe started with a simple frustration: every "sustainable" plate we tried either fell apart under a hot dinner or turned out to be plastic-lined greenwash in disguise. So we went looking for tableware that didn't ask us to compromise — and built a UK business around the suppliers who could prove it, not just claim it.</p>
+        <h2 id="storyHeadline">We got tired of choosing between "eco" and "actually works."</h2>
+        <p id="storyIntro">Heavenly EcoServe started with a simple frustration: every "sustainable" plate we tried either fell apart under a hot dinner or turned out to be plastic-lined greenwash in disguise. So we went looking for tableware that didn't ask us to compromise — and built a UK business around the suppliers who could prove it, not just claim it.</p>
         <p>Every product in our range is checked before it's listed, not just before it's shipped. We test it wet, hot and loaded, because that's how you'll actually use it. If a plate can't hold a roast dinner without flexing, it doesn't go on our shelves — no matter how good the sustainability story sounds.</p>
         <p>That's the whole pitch: no greenwashing, no flimsy substitutes, no guessing whether the "eco" claim is real. Just tableware we'd put on our own table, run by a small team based here in Leicestershire who answer their own emails.</p>
         <div class="sign">— The Heavenly EcoServe team, Leicestershire, UK</div>
@@ -849,17 +849,43 @@
     });
     var footerEmail = document.getElementById('footerEmail');
     if(footerEmail){ footerEmail.textContent = cfg.contactEmail; }
+
+    var heroH = document.getElementById('heroHeadline');
+    if(heroH && cfg.heroHeadline !== HESConfig.DEFAULTS.heroHeadline){ heroH.textContent = cfg.heroHeadline; }
+    var heroS = document.getElementById('heroSub');
+    if(heroS && cfg.heroSub !== HESConfig.DEFAULTS.heroSub){ heroS.textContent = cfg.heroSub; }
+    var storyH = document.getElementById('storyHeadline');
+    if(storyH && cfg.storyHeadline !== HESConfig.DEFAULTS.storyHeadline){ storyH.textContent = cfg.storyHeadline; }
+    var storyI = document.getElementById('storyIntro');
+    if(storyI && cfg.storyIntro !== HESConfig.DEFAULTS.storyIntro){ storyI.textContent = cfg.storyIntro; }
+
+    // Product catalog: name/price/badge on the main grid come from admin-edited config.
+    (cfg.products || []).forEach(function(p){
+      var card = document.querySelector('#prodGrid .prod-card[data-id="' + p.id + '"]');
+      if(!card) return;
+      var nameEl = card.querySelector('.prod-name'); if(nameEl) nameEl.textContent = p.name;
+      var priceEl = card.querySelector('.prod-price'); if(priceEl) priceEl.textContent = '£' + Number(p.price).toFixed(2);
+      var thumb = card.querySelector('.prod-thumb');
+      var tag = thumb ? thumb.querySelector('.prod-tag') : null;
+      if(p.badge){
+        if(!tag){ tag = document.createElement('span'); tag.className = 'prod-tag'; thumb.insertBefore(tag, thumb.firstChild); }
+        tag.textContent = p.badge;
+      } else if(tag){
+        tag.remove();
+      }
+    });
   }
 
   var filterStatus = document.getElementById('filterStatus');
   var filterLabel = document.getElementById('filterLabel');
   window.filterProducts = function(cat, label){
     scrollToId('rail-featured');
+    var wanted = String(cat).split(',');
     var cards = document.querySelectorAll('#prodGrid .prod-card');
     var shown = 0;
     cards.forEach(function(c){
       var cats = (c.dataset.cat || '').split(' ');
-      var match = cat === 'all' || cats.indexOf(cat) > -1;
+      var match = cat === 'all' || wanted.some(function(w){ return cats.indexOf(w) > -1; });
       c.style.display = match ? '' : 'none';
       if(match) shown++;
     });
