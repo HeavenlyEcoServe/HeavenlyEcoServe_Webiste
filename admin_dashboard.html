@@ -1,8 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
 <title>Heavenly EcoServe — Admin (Internal Only)</title>
 <meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
     color-scheme: light;
@@ -58,7 +63,7 @@
     --shadow: 0 1px 2px rgba(0,0,0,.35), 0 10px 28px rgba(0,0,0,.35);
   }
   *{ box-sizing:border-box; }
-  body{ background:var(--paper); color:var(--ink); font-family:"IBM Plex Sans",system-ui,sans-serif; padding-inline: max(16px, calc((100% - 1240px)/2)); padding-block:0 40px; }
+  body{ background:var(--paper); color:var(--ink); font-family:"Manrope",system-ui,sans-serif; padding-inline: max(16px, calc((100% - 1240px)/2)); padding-block:0 40px; }
   h1,h2,h3{ font-family:"Fraunces",Georgia,serif; text-wrap:balance; margin:0; }
   .num{ font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums; }
   img{ display:block; }
@@ -175,7 +180,7 @@
   @media (max-width:600px){ .trust-pillars{ grid-template-columns:1fr; } }
   .trust-pillar{ background:var(--card); border:1px solid var(--line); border-radius:13px; padding:15px; }
   .trust-pillar .ic{ width:30px;height:30px;border-radius:9px; background:var(--forest-tint); color:var(--forest); display:flex;align-items:center;justify-content:center; font-size:14px; margin-bottom:8px; }
-  .trust-pillar h4{ font-family:"IBM Plex Sans",sans-serif; font-size:13.5px; font-weight:700; }
+  .trust-pillar h4{ font-family:"Manrope",sans-serif; font-size:13.5px; font-weight:700; }
   .trust-pillar p{ font-size:12px; color:var(--ink-soft); margin-top:4px; line-height:1.5; }
 
   .cert-strip{ display:flex; justify-content:space-between; gap:16px; padding:28px 26px; border-radius:18px; background:var(--forest-deep); color:#EFEAD6; flex-wrap:wrap; }
@@ -190,7 +195,7 @@
   @media (max-width:760px){ .vp-grid{ grid-template-columns:1fr; } }
   .vp-card{ background:var(--card); border:1px solid var(--line); border-radius:13px; padding:16px; }
   .vp-card .n{ font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--marigold); font-weight:700; }
-  .vp-card h4{ font-family:"IBM Plex Sans",sans-serif; font-size:14px; font-weight:700; margin-top:6px; }
+  .vp-card h4{ font-family:"Manrope",sans-serif; font-size:14px; font-weight:700; margin-top:6px; }
   .vp-card p{ font-size:12.5px; color:var(--ink-soft); margin-top:5px; line-height:1.5; }
 
   .site-footer{ margin-top:56px; padding-top:34px; border-top:1px solid var(--line); display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:24px; font-size:13px; color:var(--ink-soft); }
@@ -216,7 +221,7 @@
   .pdp-mat-badge{ display:inline-flex; align-items:center; gap:6px; background:var(--forest-tint); color:var(--forest); font-size:11.5px; font-weight:700; padding:5px 11px; border-radius:99px; text-transform:uppercase; letter-spacing:.03em; }
   .pdp h1{ font-size:30px; font-weight:600; margin-top:14px; line-height:1.15; }
   .stars{ color:var(--marigold); font-size:14px; margin-top:8px; }
-  .stars span{ color:var(--muted); font-family:"IBM Plex Sans"; font-size:12.5px; margin-left:6px; }
+  .stars span{ color:var(--muted); font-family:"Manrope"; font-size:12.5px; margin-left:6px; }
   .pdp-price{ display:flex; align-items:baseline; gap:10px; margin-top:16px; }
   .pdp-price .now{ font-family:"IBM Plex Mono",monospace; font-size:28px; font-weight:600; }
   .pdp-price .per{ font-size:13px; color:var(--muted); }
@@ -284,7 +289,7 @@
   .admin-grid{ display:grid; grid-template-columns:1.5fr 1fr; gap:16px; }
   @media (max-width:1000px){ .admin-grid{ grid-template-columns:1fr; } }
   .panel{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px 20px; margin-bottom:16px; }
-  .panel h3{ font-family:"IBM Plex Sans",sans-serif; font-size:15px; font-weight:700; margin-bottom:14px; }
+  .panel h3{ font-family:"Manrope",sans-serif; font-size:15px; font-weight:700; margin-bottom:14px; }
   .panel .sub{ font-size:12px; color:var(--muted); margin-top:-10px; margin-bottom:14px; }
 
   table.admin-table{ width:100%; border-collapse:collapse; font-size:12.8px; }
@@ -347,6 +352,8 @@
   .internal-banner{ margin-inline:-16px; padding:10px 16px; background:repeating-linear-gradient(135deg, #3A1010, #3A1010 12px, #4A1414 12px, #4A1414 24px); color:#FDEBEB; font-size:12px; font-weight:700; text-align:center; letter-spacing:.02em; }
   @media (min-width:1272px){ .internal-banner{ margin-inline: calc(-1 * max(16px, calc((100% - 1240px)/2))); padding-inline: max(16px, calc((100% - 1240px)/2)); } }
 </style>
+</head>
+<body>
 
 <div class="internal-banner">🔒 INTERNAL USE ONLY — Not for public access. Heavenly EcoServe staff/admin reference build, synced to the live storefront catalogue.</div>
 
@@ -591,3 +598,5 @@
   });
 })();
 </script>
+</body>
+</html>

@@ -1,9 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
 <title>Heavenly EcoServe</title>
 <meta name="description" content="Compostable palm leaf tableware, plastic-free and UK-delivered — Heavenly EcoServe.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
     color-scheme: light;
@@ -63,7 +67,7 @@
     --shadow: 0 1px 2px rgba(0,0,0,.35), 0 10px 28px rgba(0,0,0,.35);
   }
   *{ box-sizing:border-box; }
-  body{ background:var(--paper); color:var(--ink); font-family:"IBM Plex Sans",system-ui,sans-serif; padding-inline: max(16px, calc((100% - 1240px)/2)); padding-block:0 40px; }
+  body{ background:var(--paper); color:var(--ink); font-family:"Manrope",system-ui,sans-serif; padding-inline: max(16px, calc((100% - 1240px)/2)); padding-block:0 40px; }
   h1,h2,h3{ font-family:"Fraunces",Georgia,serif; text-wrap:balance; margin:0; }
   .num{ font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums; }
   img{ display:block; }
@@ -105,8 +109,11 @@
 
   /* ===== Merchandising rails ===== */
   .rail-tabs{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:4px; }
-  .rail-tab{ font-size:12px; font-weight:700; padding:6px 13px; border-radius:99px; border:1px solid var(--line); color:var(--ink-soft); background:var(--card); }
+  .rail-tab{ font-size:12px; font-weight:700; padding:6px 13px; border-radius:99px; border:1px solid var(--line); color:var(--ink-soft); background:var(--card); cursor:pointer; transition:all .15s ease; }
+  .rail-tab:hover{ border-color:var(--forest); color:var(--forest); }
+  .rail-tab.active{ background:var(--forest-deep); border-color:var(--forest-deep); color:#F4F1E4; }
   .rail-tab.hot{ color:var(--maroon-deep); border-color:#E7C7CC; background:#FBEFEF; }
+  .countdown-badge{ position:absolute; top:10px; left:10px; background:var(--forest-deep); color:#EFEAD6; font-size:10px; font-weight:800; padding:4px 9px; border-radius:99px; letter-spacing:.02em; }
   .rail-scroll{ display:flex; gap:16px; overflow-x:auto; padding-bottom:6px; scrollbar-width:thin; }
   .rail-scroll .prod-card{ flex:none; width:220px; }
   .sale-badge{ position:absolute; top:10px; right:10px; background:var(--maroon-deep); color:#FDEDEE; font-size:10px; font-weight:800; padding:4px 9px; border-radius:99px; text-transform:uppercase; letter-spacing:.03em; }
@@ -172,8 +179,8 @@
   @media (max-width:860px){ .hero{ grid-template-columns:1fr; padding-top:32px;} }
   .eyebrow{ display:inline-flex; align-items:center; gap:8px; font-size:12px; letter-spacing:.09em; text-transform:uppercase; color:var(--forest); font-weight:700; margin-bottom:14px; }
   .eyebrow .dot{ width:6px;height:6px;border-radius:50%; background:var(--marigold); }
-  .hero h1{ font-size:clamp(32px,5vw,54px); line-height:1.06; font-weight:600; }
-  .hero h1 em{ font-style:normal; color:var(--forest); }
+  .hero h1{ font-size:clamp(34px,5vw,58px); line-height:1.05; font-weight:500; letter-spacing:-.01em; }
+  .hero h1 em{ font-style:italic; font-weight:500; color:var(--forest); }
   .hero p.lede{ margin-top:16px; font-size:16.5px; line-height:1.65; color:var(--ink-soft); max-width:46ch; }
   .hero-ctas{ display:flex; gap:12px; margin-top:26px; flex-wrap:wrap; }
   .btn{ display:inline-flex; align-items:center; gap:8px; padding:13px 24px; border-radius:11px; font-weight:600; font-size:14.5px; cursor:pointer; border:1px solid transparent; }
@@ -195,7 +202,7 @@
 
   section.block{ padding-block:46px; }
   .block-head{ display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:22px; flex-wrap:wrap; }
-  .block-head h2{ font-size:26px; font-weight:600; }
+  .block-head h2{ font-size:27px; font-weight:500; letter-spacing:-.005em; }
   .block-head .see-all{ font-size:13px; font-weight:600; color:var(--forest); white-space:nowrap; }
 
   .full-range-banner{ border-radius:18px; overflow:hidden; box-shadow:var(--shadow); }
@@ -233,7 +240,7 @@
   .story{ display:grid; grid-template-columns:1fr 1fr; gap:44px; align-items:center; }
   @media (max-width:820px){ .story{ grid-template-columns:1fr; } }
   .story .eyebrow{ margin-bottom:12px; }
-  .story h2{ font-size:30px; font-weight:600; line-height:1.15; max-width:16ch; }
+  .story h2{ font-size:32px; font-weight:500; line-height:1.14; max-width:16ch; letter-spacing:-.01em; }
   .story p{ font-size:15px; line-height:1.7; color:var(--ink-soft); margin-top:16px; max-width:56ch; }
   .story .sign{ margin-top:20px; font-family:"Fraunces",serif; font-style:italic; color:var(--forest-deep); font-size:15px; }
   .story-photo{ border-radius:20px; overflow:hidden; box-shadow:var(--shadow); aspect-ratio:4/3.4; }
@@ -242,7 +249,7 @@
   @media (max-width:600px){ .trust-pillars{ grid-template-columns:1fr; } }
   .trust-pillar{ background:var(--card); border:1px solid var(--line); border-radius:13px; padding:15px; }
   .trust-pillar .ic{ width:30px;height:30px;border-radius:9px; background:var(--forest-tint); color:var(--forest); display:flex;align-items:center;justify-content:center; font-size:14px; margin-bottom:8px; }
-  .trust-pillar h4{ font-family:"IBM Plex Sans",sans-serif; font-size:13.5px; font-weight:700; }
+  .trust-pillar h4{ font-family:"Manrope",sans-serif; font-size:13.5px; font-weight:700; }
   .trust-pillar p{ font-size:12px; color:var(--ink-soft); margin-top:4px; line-height:1.5; }
 
   .cert-strip{ display:flex; justify-content:space-between; gap:16px; padding:28px 26px; border-radius:18px; background:var(--forest-deep); color:#EFEAD6; flex-wrap:wrap; }
@@ -251,13 +258,13 @@
 
   /* Value story */
   .valueprop{ background:var(--forest-tint); border:1px solid var(--line); border-radius:20px; padding:32px; }
-  .valueprop h2{ font-size:26px; font-weight:600; max-width:22ch; color:var(--forest-deep); }
+  .valueprop h2{ font-size:27px; font-weight:500; max-width:22ch; color:var(--forest-deep); letter-spacing:-.005em; }
   .valueprop .quote{ font-family:"Fraunces",serif; font-style:italic; font-size:17px; line-height:1.5; color:var(--forest-deep); border-left:3px solid var(--marigold); padding-left:16px; margin-top:14px; max-width:52ch; }
   .vp-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:24px; }
   @media (max-width:760px){ .vp-grid{ grid-template-columns:1fr; } }
   .vp-card{ background:var(--card); border:1px solid var(--line); border-radius:13px; padding:16px; }
   .vp-card .n{ font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--marigold); font-weight:700; }
-  .vp-card h4{ font-family:"IBM Plex Sans",sans-serif; font-size:14px; font-weight:700; margin-top:6px; }
+  .vp-card h4{ font-family:"Manrope",sans-serif; font-size:14px; font-weight:700; margin-top:6px; }
   .vp-card p{ font-size:12.5px; color:var(--ink-soft); margin-top:5px; line-height:1.5; }
 
   .site-footer{ margin-top:56px; padding-top:34px; border-top:1px solid var(--line); display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:24px; font-size:13px; color:var(--ink-soft); }
@@ -281,9 +288,9 @@
   .pdp-thumb img{ width:100%;height:100%;object-fit:cover; }
 
   .pdp-mat-badge{ display:inline-flex; align-items:center; gap:6px; background:var(--forest-tint); color:var(--forest); font-size:11.5px; font-weight:700; padding:5px 11px; border-radius:99px; text-transform:uppercase; letter-spacing:.03em; }
-  .pdp h1{ font-size:30px; font-weight:600; margin-top:14px; line-height:1.15; }
+  .pdp h1{ font-size:32px; font-weight:500; margin-top:14px; line-height:1.15; letter-spacing:-.01em; }
   .stars{ color:var(--marigold); font-size:14px; margin-top:8px; }
-  .stars span{ color:var(--muted); font-family:"IBM Plex Sans"; font-size:12.5px; margin-left:6px; }
+  .stars span{ color:var(--muted); font-family:"Manrope"; font-size:12.5px; margin-left:6px; }
   .pdp-price{ display:flex; align-items:baseline; gap:10px; margin-top:16px; }
   .pdp-price .now{ font-family:"IBM Plex Mono",monospace; font-size:28px; font-weight:600; }
   .pdp-price .per{ font-size:13px; color:var(--muted); }
@@ -309,6 +316,8 @@
 
   .related{ padding-bottom:50px; }
 </style>
+</head>
+<body>
 
 <!-- =================== STOREFRONT =================== -->
 <div class="view active" id="view-storefront">
@@ -379,10 +388,10 @@
   </section>
 
   <section class="block">
-    <div class="rail-tabs">
-      <span class="rail-tab hot">🔥 Best Sellers</span><span class="rail-tab">Discounted Products</span><span class="rail-tab">Limited Time Offer</span><span class="rail-tab">Featured Products</span><span class="rail-tab">Top Rated</span><span class="rail-tab">New Arrivals</span>
+    <div class="rail-tabs" id="railTabs">
+      <button type="button" class="rail-tab hot active" data-target="rail-bestsellers">🔥 Best Sellers</button><button type="button" class="rail-tab" data-target="rail-discounted">Discounted Products</button><button type="button" class="rail-tab" data-target="rail-limited">Limited Time Offer</button><button type="button" class="rail-tab" data-target="rail-featured">Featured Products</button><button type="button" class="rail-tab" data-target="rail-featured">Top Rated</button><button type="button" class="rail-tab" data-target="rail-newarrivals">New Arrivals</button>
     </div>
-    <div class="block-head" style="margin-top:14px;"><h2>Best Sellers</h2><span class="see-all">View all →</span></div>
+    <div class="block-head" style="margin-top:14px;" id="rail-bestsellers"><h2>Best Sellers</h2><span class="see-all">View all →</span></div>
     <div class="rail-scroll">
       <div class="prod-card" onclick="showView('product')"><div class="prod-thumb"><span class="prod-tag">Bestseller</span><img src="images/amisol-10in-round-plate.jpg"></div><div class="prod-body"><div class="prod-mat">Palm Leaf</div><div class="prod-name">10&Prime; Round Plate — 25 Pack</div><div class="prod-row"><span class="prod-price">£14.99</span><button class="add-btn">+</button></div></div></div>
       <div class="prod-card"><div class="prod-thumb"><img src="images/amisol-10in-square-plate.jpg"></div><div class="prod-body"><div class="prod-mat">Palm Leaf</div><div class="prod-name">10&Prime; Square Plate — 25 Pack</div><div class="prod-row"><span class="prod-price">£14.99</span><button class="add-btn">+</button></div></div></div>
@@ -391,7 +400,7 @@
       <div class="prod-card"><div class="prod-thumb"><img src="images/amisol-9in-round-plate.jpg"></div><div class="prod-body"><div class="prod-mat">Palm Leaf</div><div class="prod-name">9&Prime; Round Plate — 25 Pack</div><div class="prod-row"><span class="prod-price">£12.99</span><button class="add-btn">+</button></div></div></div>
     </div>
 
-    <div class="block-head" style="margin-top:34px;"><h2>Discounted Products</h2><span class="see-all">View all →</span></div>
+    <div class="block-head" style="margin-top:34px;" id="rail-discounted"><h2>Discounted Products</h2><span class="see-all">View all →</span></div>
     <div class="rail-scroll">
       <div class="prod-card"><div class="prod-thumb" style="position:relative;"><span class="sale-badge">-15%</span><img src="images/amisol-12in-4cp-plate.jpg"></div><div class="prod-body"><div class="prod-mat">Palm Leaf</div><div class="prod-name">12&Prime; 4CP Party Plate — 25 Pack</div><div class="prod-row"><span class="prod-price"><span class="was">£27.99</span>£23.99</span><button class="add-btn">+</button></div></div></div>
       <div class="prod-card"><div class="prod-thumb" style="position:relative;"><span class="sale-badge">-10%</span><img src="images/amisol-10in-3cp-plate.jpg"></div><div class="prod-body"><div class="prod-mat">Palm Leaf</div><div class="prod-name">10&Prime; 3CP Plate — 25 Pack</div><div class="prod-row"><span class="prod-price"><span class="was">£15.99</span>£14.49</span><button class="add-btn">+</button></div></div></div>
@@ -399,7 +408,14 @@
       <div class="prod-card"><div class="prod-thumb" style="position:relative;"><span class="sale-badge">-12%</span><img src="images/brand-palm-leaf-soup-spoon.jpg"></div><div class="prod-body"><div class="prod-mat">Palm Leaf</div><div class="prod-name">Soup Spoon — 25 Pack</div><div class="prod-row"><span class="prod-price"><span class="was">£9.99</span>£8.99</span><button class="add-btn">+</button></div></div></div>
     </div>
 
-    <div class="block-head" style="margin-top:34px;"><h2>New Arrivals</h2><span class="see-all">View all →</span></div>
+    <div class="block-head" style="margin-top:34px;" id="rail-limited"><h2>Limited Time Offer</h2><span class="see-all">Ends 15 Oct 2026</span></div>
+    <div class="rail-scroll">
+      <div class="prod-card"><div class="prod-thumb" style="position:relative;"><span class="countdown-badge">⏳ Ends soon</span><img src="images/amisol-9in-square-plate.jpg"></div><div class="prod-body"><div class="prod-mat">Palm Leaf</div><div class="prod-name">9&Prime; Square Plate — 25 Pack</div><div class="prod-row"><span class="prod-price"><span class="was">£14.49</span>£12.99</span><button class="add-btn">+</button></div></div></div>
+      <div class="prod-card"><div class="prod-thumb" style="position:relative;"><span class="countdown-badge">⏳ Ends soon</span><img src="images/amisol-9in-round-plate.jpg"></div><div class="prod-body"><div class="prod-mat">Palm Leaf</div><div class="prod-name">9&Prime; Round Plate — 25 Pack</div><div class="prod-row"><span class="prod-price"><span class="was">£14.49</span>£12.99</span><button class="add-btn">+</button></div></div></div>
+      <div class="prod-card"><div class="prod-thumb" style="position:relative;"><span class="countdown-badge">⏳ Ends soon</span><img src="images/amisol-55in-square-bowl.jpg"></div><div class="prod-body"><div class="prod-mat">Palm Leaf</div><div class="prod-name">5.5&Prime; Square Bowl — 25 Pack</div><div class="prod-row"><span class="prod-price"><span class="was">£14.49</span>£12.99</span><button class="add-btn">+</button></div></div></div>
+    </div>
+
+    <div class="block-head" style="margin-top:34px;" id="rail-newarrivals"><h2>New Arrivals</h2><span class="see-all">View all →</span></div>
     <div class="rail-scroll">
       <div class="prod-card"><div class="prod-thumb"><span class="prod-tag">New</span><img src="images/amisol-12in-4cp-plate.jpg"></div><div class="prod-body"><div class="prod-mat">Palm Leaf</div><div class="prod-name">12&Prime; 4-Compartment Plate</div><div class="prod-row"><span class="prod-price">£23.99</span><button class="add-btn">+</button></div></div></div>
       <div class="prod-card"><div class="prod-thumb"><span class="prod-tag">New</span><img src="images/amisol-16cm-round-bowl.jpg"></div><div class="prod-body"><div class="prod-mat">Palm Leaf</div><div class="prod-name">16cm Round Bowl — 25 Pack</div><div class="prod-row"><span class="prod-price">£13.49</span><button class="add-btn">+</button></div></div></div>
@@ -422,7 +438,7 @@
     </div>
   </section>
 
-  <section class="block">
+  <section class="block" id="rail-featured">
     <div class="block-head"><h2>Featured Products &amp; Top Rated — Our Full Range</h2><span class="see-all">View all 10 →</span></div>
     <div class="prod-grid">
       <div class="prod-card" onclick="showView('product')">
@@ -692,6 +708,15 @@
     });
   });
 
+  document.querySelectorAll('.rail-tab').forEach(function(t){
+    t.addEventListener('click', function(){
+      document.querySelectorAll('.rail-tab').forEach(function(x){ x.classList.remove('active'); });
+      t.classList.add('active');
+      var target = document.getElementById(t.dataset.target);
+      if(target){ target.scrollIntoView({behavior:'smooth', block:'start'}); }
+    });
+  });
+
   var qty = 1;
   window.stepQty = function(d){
     qty = Math.max(1, qty + d);
@@ -714,3 +739,5 @@
   if(['storefront','product'].indexOf(start)>-1){ showView(start); }
 })();
 </script>
+</body>
+</html>
