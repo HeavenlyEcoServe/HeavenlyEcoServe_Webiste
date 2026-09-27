@@ -93,11 +93,21 @@
 
   /* ===== Search + shop/brands row ===== */
   .search-row{ display:flex; align-items:center; gap:14px; flex:1; max-width:520px; }
-  .search-box{ flex:1; display:flex; align-items:center; gap:8px; border:1px solid var(--line); background:var(--card); border-radius:10px; padding:9px 14px; color:var(--muted); font-size:13px; }
-  .shop-btn{ display:flex; align-items:center; gap:6px; font-size:13px; font-weight:700; color:var(--forest-deep); background:var(--sand); border:1px solid var(--line); padding:9px 14px; border-radius:10px; white-space:nowrap; }
+  .search-box-wrap{ flex:1; }
+  .search-box{ width:100%; border:1px solid var(--line); background:var(--card); border-radius:10px; padding:9px 14px; color:var(--ink); font-size:13px; font-family:inherit; }
+  .search-box:focus{ outline:none; border-color:var(--forest); }
+  .search-box::placeholder{ color:var(--muted); }
+  .shop-btn{ display:flex; align-items:center; gap:6px; font-size:13px; font-weight:700; color:var(--forest-deep); background:var(--sand); border:1px solid var(--line); padding:9px 14px; border-radius:10px; white-space:nowrap; cursor:pointer; }
+  .shop-btn:hover{ border-color:var(--forest); }
   @media (max-width:920px){ .search-row{ display:none; } }
-  .icon-btn{ position:relative; }
+  .icon-btn{ position:relative; cursor:pointer; }
   .icon-count{ position:absolute; top:-6px; right:-6px; background:var(--marigold); color:#33260A; font-size:9.5px; font-weight:800; border-radius:99px; min-width:16px; height:16px; display:flex; align-items:center; justify-content:center; padding:0 3px; }
+
+  /* ===== Filter status + toast ===== */
+  .filter-status{ display:flex; align-items:center; gap:10px; background:var(--forest-tint); color:var(--forest-deep); font-size:12.5px; font-weight:600; padding:9px 14px; border-radius:10px; margin-bottom:16px; }
+  .filter-status button{ background:none; border:1px solid currentColor; color:inherit; border-radius:99px; padding:2px 10px; font-size:11px; font-weight:700; cursor:pointer; }
+  .toast{ position:fixed; left:50%; bottom:28px; transform:translateX(-50%) translateY(20px); background:var(--forest-deep); color:#F4F1E4; font-size:13px; font-weight:500; padding:12px 20px; border-radius:99px; box-shadow:var(--shadow); z-index:300; opacity:0; pointer-events:none; transition:all .25s ease; max-width:90vw; text-align:center; }
+  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
 
   /* ===== Category nav strip ===== */
   .cat-strip{ display:flex; gap:26px; overflow-x:auto; padding:16px 0 6px; border-top:1px solid var(--line); scrollbar-width:none; }
@@ -256,6 +266,12 @@
   .cert-item{ display:flex; align-items:center; gap:10px; font-size:13px; font-weight:500; flex:1; min-width:180px; }
   .cert-item .ic{ width:30px;height:30px;border-radius:9px; background:rgba(255,255,255,.1); display:flex;align-items:center;justify-content:center; font-size:14px; flex:none; color:var(--marigold);}
 
+  .vendor-banner-lite{ display:flex; justify-content:space-between; align-items:center; gap:24px; padding:30px 32px; border-radius:20px; border:1px solid var(--line); background:var(--card); flex-wrap:wrap; }
+  .vendor-banner-lite h2{ font-size:24px; font-weight:500; margin-top:8px; max-width:20ch; }
+  .vendor-banner-lite p{ font-size:13.5px; color:var(--ink-soft); margin-top:8px; max-width:48ch; line-height:1.6; }
+  .wholesale-ctas{ display:flex; flex-direction:column; gap:10px; flex:none; }
+  .wholesale-ctas .btn{ white-space:nowrap; justify-content:center; }
+
   /* Value story */
   .valueprop{ background:var(--forest-tint); border:1px solid var(--line); border-radius:20px; padding:32px; }
   .valueprop h2{ font-size:27px; font-weight:500; max-width:22ch; color:var(--forest-deep); letter-spacing:-.005em; }
@@ -340,29 +356,31 @@
     <div class="nav">
       <div class="logo"><img src="images/heavenly-logo.png" alt="Heavenly EcoServe" class="logo-img"></div>
       <div class="search-row">
-        <div class="shop-btn">☰ Shop</div>
-        <div class="search-box">🔍 Search palm leaf plates, bowls, cutlery…</div>
-        <div class="shop-btn" style="background:transparent;">Brands</div>
+        <button type="button" class="shop-btn" onclick="scrollToId('catStrip')">☰ Shop</button>
+        <div class="search-box-wrap">
+          <input type="search" id="siteSearch" class="search-box" placeholder="🔍 Search palm leaf plates, bowls, cutlery…" autocomplete="off">
+        </div>
+        <button type="button" class="shop-btn" style="background:transparent;" onclick="filterProducts('all','All Products')">Brands</button>
       </div>
       <div class="nav-links">
-        <a href="#">Square Plates</a><a href="#">Round Plates</a><a href="#">Bowls</a><a href="#">Compartment Plates</a><a href="#our-story">Our Story</a><a href="#">Wholesale</a>
+        <a href="#rail-featured" onclick="filterProducts('square','Square Plates'); return false;">Square Plates</a><a href="#rail-featured" onclick="filterProducts('round','Round Plates'); return false;">Round Plates</a><a href="#rail-featured" onclick="filterProducts('bowl','Bowls'); return false;">Bowls</a><a href="#rail-featured" onclick="filterProducts('compartment','Compartment Plates'); return false;">Compartment Plates</a><a href="#our-story">Our Story</a><a href="#wholesale" onclick="scrollToId('wholesale'); return false;">Wholesale</a>
       </div>
       <div class="nav-actions">
-        <span class="icon-btn" title="Account">☺</span>
-        <span class="icon-btn" title="Wishlist">♡<span class="icon-count">2</span></span>
-        <span class="icon-btn" title="Basket">🛒<span class="icon-count">3</span></span>
+        <span class="icon-btn" title="Account" onclick="showToast('Account sign-in isn\'t wired up in this preview build.')">☺</span>
+        <span class="icon-btn" title="Wishlist" onclick="showToast('2 items saved to your wishlist.')">♡<span class="icon-count">2</span></span>
+        <span class="icon-btn" title="Basket" onclick="showToast('3 items in your basket — checkout isn\'t wired up in this preview build.')">🛒<span class="icon-count">3</span></span>
       </div>
     </div>
-    <div class="cat-strip">
-      <div class="cat-item"><div class="ic">◐</div><span class="lbl">Round Plates</span></div>
-      <div class="cat-item"><div class="ic">◻</div><span class="lbl">Square Plates</span></div>
-      <div class="cat-item"><div class="ic">◔</div><span class="lbl">Bowls</span></div>
-      <div class="cat-item"><div class="ic">▦</div><span class="lbl">Compartment Plates</span></div>
-      <div class="cat-item"><div class="ic">🍴</div><span class="lbl">Brichwood Cutlery</span></div>
-      <div class="cat-item"><div class="ic">🥄</div><span class="lbl">Soup Spoons</span></div>
-      <div class="cat-item"><div class="ic">📦</div><span class="lbl">Bulk &amp; Wholesale</span></div>
-      <div class="cat-item"><div class="ic">🌿</div><span class="lbl">Compostables</span></div>
-      <div class="cat-item"><div class="ic">🎉</div><span class="lbl">Party Packs</span></div>
+    <div class="cat-strip" id="catStrip">
+      <div class="cat-item" role="button" tabindex="0" onclick="filterProducts('round','Round Plates')"><div class="ic">◐</div><span class="lbl">Round Plates</span></div>
+      <div class="cat-item" role="button" tabindex="0" onclick="filterProducts('square','Square Plates')"><div class="ic">◻</div><span class="lbl">Square Plates</span></div>
+      <div class="cat-item" role="button" tabindex="0" onclick="filterProducts('bowl','Bowls')"><div class="ic">◔</div><span class="lbl">Bowls</span></div>
+      <div class="cat-item" role="button" tabindex="0" onclick="filterProducts('compartment','Compartment Plates')"><div class="ic">▦</div><span class="lbl">Compartment Plates</span></div>
+      <div class="cat-item" role="button" tabindex="0" onclick="filterProducts('cutlery','Brichwood Cutlery')"><div class="ic">🍴</div><span class="lbl">Brichwood Cutlery</span></div>
+      <div class="cat-item" role="button" tabindex="0" onclick="filterProducts('spoon','Soup Spoons')"><div class="ic">🥄</div><span class="lbl">Soup Spoons</span></div>
+      <div class="cat-item" role="button" tabindex="0" onclick="scrollToId('wholesale')"><div class="ic">📦</div><span class="lbl">Bulk &amp; Wholesale</span></div>
+      <div class="cat-item" role="button" tabindex="0" onclick="scrollToId('compostables-note')"><div class="ic">🌿</div><span class="lbl">Compostables</span></div>
+      <div class="cat-item" role="button" tabindex="0" onclick="filterProducts('party','Party Packs')"><div class="ic">🎉</div><span class="lbl">Party Packs</span></div>
     </div>
   </div>
 
@@ -372,8 +390,8 @@
       <h1>Set the table<br>without the <em>guilt</em>.</h1>
       <p class="lede">Eight plates and bowls pressed from fallen areca palm leaves — no trees cut, no plastic lining, no chemicals. Sturdy enough for a Sunday roast, gone completely within 60&ndash;90 days.</p>
       <div class="hero-ctas">
-        <button class="btn btn-primary">Shop The Range →</button>
-        <button class="btn btn-ghost">Shop Wholesale</button>
+        <button class="btn btn-primary" type="button" onclick="scrollToId('rail-featured')">Shop The Range →</button>
+        <button class="btn btn-ghost" type="button" onclick="scrollToId('wholesale')">Shop Wholesale</button>
       </div>
       <div class="trust-row">
         <div class="trust-item"><span class="ic">&#127811;</span>100% natural leaf</div>
@@ -434,59 +452,60 @@
     <div class="material-grid">
       <div class="material-card"><img src="images/amisol-10in-round-plate.jpg" alt="Round palm leaf plates"><div class="ov"><div><h3>Plates</h3><p>9&Prime; &amp; 10&Prime;, round &amp; square</p></div></div></div>
       <div class="material-card"><img src="images/amisol-16cm-round-bowl.jpg" alt="Palm leaf bowls"><div class="ov"><div><h3>Bowls</h3><p>5.5&Prime; square &amp; 16cm round</p></div></div></div>
-      <div class="material-card"><img src="images/brand-birchwood-cutlery-set.jpg" alt="Birchwood cutlery and palm leaf soup spoon"><div class="ov"><div><h3>Cutlery</h3><p>Birchwood set &amp; palm leaf spoon</p></div></div></div>
+      <div class="material-card"><img src="images/brand-birchwood-cutlery-set.jpg" alt="Brichwood cutlery and palm leaf soup spoon"><div class="ov"><div><h3>Cutlery</h3><p>Brichwood set &amp; palm leaf spoon</p></div></div></div>
     </div>
   </section>
 
   <section class="block" id="rail-featured">
     <div class="block-head"><h2>Featured Products &amp; Top Rated — Our Full Range</h2><span class="see-all">View all 10 →</span></div>
-    <div class="prod-grid">
-      <div class="prod-card" onclick="showView('product')">
+    <div class="filter-status" id="filterStatus" style="display:none;">Showing: <span id="filterLabel"></span><button type="button" onclick="clearFilter()">Clear ✕</button></div>
+    <div class="prod-grid" id="prodGrid">
+      <div class="prod-card" data-cat="round" data-name="10 round palm leaf plate" onclick="showView('product')">
         <div class="prod-thumb"><span class="prod-tag">Bestseller</span><img src="images/amisol-10in-round-plate.jpg" alt="10 inch round palm leaf plate"></div>
         <div class="prod-body"><div class="prod-mat">Palm Leaf</div><div class="prod-name">10&Prime; Round Palm Leaf Plate — 25 Pack</div>
           <div class="prod-row"><span class="prod-price">£14.99</span><button class="add-btn">+</button></div></div>
       </div>
-      <div class="prod-card">
+      <div class="prod-card" data-cat="square" data-name="10 square palm leaf plate">
         <div class="prod-thumb"><img src="images/amisol-10in-square-plate.jpg" alt="10 inch square palm leaf plate"></div>
         <div class="prod-body"><div class="prod-mat">Palm Leaf</div><div class="prod-name">10&Prime; Square Palm Leaf Plate — 25 Pack</div>
           <div class="prod-row"><span class="prod-price">£14.99</span><button class="add-btn">+</button></div></div>
       </div>
-      <div class="prod-card">
+      <div class="prod-card" data-cat="round" data-name="9 round palm leaf plate">
         <div class="prod-thumb"><img src="images/amisol-9in-round-plate.jpg" alt="9 inch round palm leaf plate"></div>
         <div class="prod-body"><div class="prod-mat">Palm Leaf</div><div class="prod-name">9&Prime; Round Palm Leaf Plate — 25 Pack</div>
           <div class="prod-row"><span class="prod-price">£12.99</span><button class="add-btn">+</button></div></div>
       </div>
-      <div class="prod-card">
+      <div class="prod-card" data-cat="square" data-name="9 square palm leaf plate">
         <div class="prod-thumb"><img src="images/amisol-9in-square-plate.jpg" alt="9 inch square palm leaf plate"></div>
         <div class="prod-body"><div class="prod-mat">Palm Leaf</div><div class="prod-name">9&Prime; Square Palm Leaf Plate — 25 Pack</div>
           <div class="prod-row"><span class="prod-price">£12.99</span><button class="add-btn">+</button></div></div>
       </div>
-      <div class="prod-card">
+      <div class="prod-card" data-cat="bowl" data-name="5.5 square palm leaf bowl">
         <div class="prod-thumb"><img src="images/amisol-55in-square-bowl.jpg" alt="5.5 inch square palm leaf bowl"></div>
         <div class="prod-body"><div class="prod-mat">Palm Leaf</div><div class="prod-name">5.5&Prime; Square Palm Leaf Bowl — 25 Pack</div>
           <div class="prod-row"><span class="prod-price">£12.99</span><button class="add-btn">+</button></div></div>
       </div>
-      <div class="prod-card">
+      <div class="prod-card" data-cat="bowl" data-name="16cm round palm leaf bowl">
         <div class="prod-thumb"><span class="prod-tag">New</span><img src="images/amisol-16cm-round-bowl.jpg" alt="16cm round palm leaf bowl"></div>
         <div class="prod-body"><div class="prod-mat">Palm Leaf</div><div class="prod-name">16cm Round Palm Leaf Bowl — 25 Pack</div>
           <div class="prod-row"><span class="prod-price">£13.49</span><button class="add-btn">+</button></div></div>
       </div>
-      <div class="prod-card">
+      <div class="prod-card" data-cat="compartment party" data-name="12 4 compartment party plate">
         <div class="prod-thumb"><span class="prod-tag">New</span><img src="images/amisol-12in-4cp-plate.jpg" alt="12 inch 4 compartment palm leaf plate"></div>
         <div class="prod-body"><div class="prod-mat">Palm Leaf</div><div class="prod-name">12&Prime; 4-Compartment Party Plate — 25 Pack</div>
           <div class="prod-row"><span class="prod-price">£23.99</span><button class="add-btn">+</button></div></div>
       </div>
-      <div class="prod-card">
+      <div class="prod-card" data-cat="compartment" data-name="10 3 compartment plate">
         <div class="prod-thumb"><img src="images/amisol-10in-3cp-plate.jpg" alt="10 inch 3 compartment palm leaf plate"></div>
         <div class="prod-body"><div class="prod-mat">Palm Leaf</div><div class="prod-name">10&Prime; 3-Compartment Plate — 25 Pack</div>
           <div class="prod-row"><span class="prod-price">£14.49</span><button class="add-btn">+</button></div></div>
       </div>
-      <div class="prod-card">
-        <div class="prod-thumb"><span class="prod-tag">New</span><img src="images/brand-birchwood-cutlery-set.jpg" alt="Birchwood cutlery set"></div>
-        <div class="prod-body"><div class="prod-mat">Birchwood</div><div class="prod-name">Birchwood Cutlery Set — Knife, Fork &amp; Spoon</div>
+      <div class="prod-card" data-cat="cutlery" data-name="brichwood cutlery set">
+        <div class="prod-thumb"><span class="prod-tag">New</span><img src="images/brand-birchwood-cutlery-set.jpg" alt="Brichwood cutlery set"></div>
+        <div class="prod-body"><div class="prod-mat">Brichwood</div><div class="prod-name">Brichwood Cutlery Set — Knife, Fork &amp; Spoon</div>
           <div class="prod-row"><span class="prod-price">£6.99</span><button class="add-btn">+</button></div></div>
       </div>
-      <div class="prod-card">
+      <div class="prod-card" data-cat="spoon" data-name="palm leaf soup spoon">
         <div class="prod-thumb"><span class="prod-tag">New</span><img src="images/brand-palm-leaf-soup-spoon.jpg" alt="Palm leaf soup spoon"></div>
         <div class="prod-body"><div class="prod-mat">Palm Leaf</div><div class="prod-name">Palm Leaf Soup Spoon — 25 Pack</div>
           <div class="prod-row"><span class="prod-price">£8.99</span><button class="add-btn">+</button></div></div>
@@ -533,11 +552,25 @@
     </div>
   </section>
 
-  <section class="block">
+  <section class="block" id="compostables-note">
     <div class="cert-strip">
       <div class="cert-item"><span class="ic">&#9851;</span>Home &amp; industrial compostable, 60&ndash;90 days</div>
       <div class="cert-item"><span class="ic">&#127807;</span>Made from fallen leaves &amp; sugarcane fibre &mdash; no trees cut</div>
       <div class="cert-item"><span class="ic">&#128666;</span>Dispatched from our UK warehouse in Leicestershire</div>
+    </div>
+  </section>
+
+  <section class="block" id="wholesale">
+    <div class="vendor-banner-lite">
+      <div>
+        <div class="eyebrow"><span class="dot"></span>Trade &amp; Bulk Orders</div>
+        <h2>Buying for a restaurant, event or shop?</h2>
+        <p>We supply cafés, caterers and retailers across the UK with palm leaf and brichwood tableware at trade pricing — 1,000-pack cartons, mixed pallets and rebrand-ready packaging on request.</p>
+      </div>
+      <div class="wholesale-ctas">
+        <a class="btn btn-primary" href="mailto:admin@heavenlyecoserve.co.uk?subject=Wholesale%20enquiry">Email the wholesale team</a>
+        <button class="btn btn-ghost" type="button" onclick="filterProducts('all','All Products')">Browse full range</button>
+      </div>
     </div>
   </section>
 
@@ -679,6 +712,7 @@
   </section>
 </div>
 
+<div class="toast" id="toast"></div>
 
 <script>
 (function(){
@@ -688,6 +722,63 @@
     window.scrollTo({top:0, behavior:'instant'});
   }
   window.showView = showView;
+
+  window.scrollToId = function(id){
+    var el = document.getElementById(id);
+    if(el){ el.scrollIntoView({behavior:'smooth', block:'start'}); }
+  };
+
+  var toastTimer;
+  window.showToast = function(msg){
+    var t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ t.classList.remove('show'); }, 2600);
+  };
+
+  var filterStatus = document.getElementById('filterStatus');
+  var filterLabel = document.getElementById('filterLabel');
+  window.filterProducts = function(cat, label){
+    scrollToId('rail-featured');
+    var cards = document.querySelectorAll('#prodGrid .prod-card');
+    var shown = 0;
+    cards.forEach(function(c){
+      var cats = (c.dataset.cat || '').split(' ');
+      var match = cat === 'all' || cats.indexOf(cat) > -1;
+      c.style.display = match ? '' : 'none';
+      if(match) shown++;
+    });
+    if(cat === 'all'){
+      filterStatus.style.display = 'none';
+    } else {
+      filterLabel.textContent = label + ' (' + shown + ')';
+      filterStatus.style.display = 'flex';
+    }
+    var search = document.getElementById('siteSearch');
+    if(search) search.value = '';
+  };
+  window.clearFilter = function(){
+    document.querySelectorAll('#prodGrid .prod-card').forEach(function(c){ c.style.display=''; });
+    filterStatus.style.display = 'none';
+  };
+
+  var searchInput = document.getElementById('siteSearch');
+  if(searchInput){
+    searchInput.addEventListener('input', function(){
+      var q = searchInput.value.trim().toLowerCase();
+      if(!q){ clearFilter(); return; }
+      scrollToId('rail-featured');
+      var shown = 0;
+      document.querySelectorAll('#prodGrid .prod-card').forEach(function(c){
+        var match = (c.dataset.name || '').indexOf(q) > -1;
+        c.style.display = match ? '' : 'none';
+        if(match) shown++;
+      });
+      filterLabel.textContent = '"' + searchInput.value.trim() + '" (' + shown + ')';
+      filterStatus.style.display = 'flex';
+    });
+  }
   window.setPdpImg = function(el, src){
     document.getElementById('pdpMainImg').src = src;
     document.querySelectorAll('.pdp-thumb').forEach(function(t){ t.classList.remove('active'); });
