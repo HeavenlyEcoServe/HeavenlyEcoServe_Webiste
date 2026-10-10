@@ -11,7 +11,7 @@ section{padding:72px 0}
 .lede{color:var(--muted);max-width:640px;margin-bottom:2rem}
 .dark{background:var(--green);color:#f4efe0}.dark h2,.dark h3{color:var(--gold-2)}.dark .lede{color:#cfd8cf}
 /* header */
-header{position:sticky;top:0;z-index:50;background:rgba(15,61,46,.96);backdrop-filter:blur(8px);border-bottom:1px solid rgba(201,162,75,.4)}
+header{position:sticky;top:0;z-index:50;background:rgba(15,61,46,.96);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-bottom:1px solid rgba(201,162,75,.4)}
 .nav{display:flex;align-items:center;justify-content:space-between;height:72px}
 .logo{font-family:'Playfair Display',serif;color:var(--gold-2);font-size:1.25rem;text-decoration:none;display:flex;gap:10px;align-items:center}
 .logo{background:var(--cream);border-radius:12px;padding:4px 12px}.logo img{height:46px;width:auto}

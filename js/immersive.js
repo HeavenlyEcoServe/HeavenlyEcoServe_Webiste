@@ -80,16 +80,16 @@
   addEventListener('scroll', function () { requestAnimationFrame(onScroll); }, { passive: true }); onScroll();
   if (fine && !reduce) {
     var g = document.createElement('div'); g.id = 'glow'; document.body.appendChild(g); var gx = 0, gy = 0, tx = 0, ty = 0;
-    addEventListener('pointermove', function (e) { tx = e.clientX; ty = e.clientY; g.classList.add('on'); }, { passive: true });
+    addEventListener('pointermove', function (e) { if (e.pointerType === 'touch') return; tx = e.clientX; ty = e.clientY; g.classList.add('on'); }, { passive: true });
     (function loop() { gx += (tx - gx) * .12; gy += (ty - gy) * .12; g.style.transform = 'translate3d(' + gx + 'px,' + gy + 'px,0)'; requestAnimationFrame(loop); })();
     // 3D tilt on cards and tiles
     $$('.card,.tile,.plan').forEach(function (el) {
-      el.addEventListener('pointermove', function (e) { var r = el.getBoundingClientRect(), px = (e.clientX - r.left) / r.width - .5, py = (e.clientY - r.top) / r.height - .5; el.style.transform = 'perspective(900px) rotateY(' + px * 7 + 'deg) rotateX(' + -py * 7 + 'deg) translateZ(0)'; });
+      el.addEventListener('pointermove', function (e) { if (e.pointerType === 'touch') return; var r = el.getBoundingClientRect(), px = (e.clientX - r.left) / r.width - .5, py = (e.clientY - r.top) / r.height - .5; el.style.transform = 'perspective(900px) rotateY(' + px * 7 + 'deg) rotateX(' + -py * 7 + 'deg) translateZ(0)'; });
       el.addEventListener('pointerleave', function () { el.style.transform = ''; });
     });
     // magnetic buttons
     $$('.btn-gold,.btn-line,.cartbtn').forEach(function (b) {
-      b.addEventListener('pointermove', function (e) { var r = b.getBoundingClientRect(); b.style.transform = 'translate(' + (e.clientX - r.left - r.width / 2) * .18 + 'px,' + (e.clientY - r.top - r.height / 2) * .28 + 'px)'; });
+      b.addEventListener('pointermove', function (e) { if (e.pointerType === 'touch') return; var r = b.getBoundingClientRect(); b.style.transform = 'translate(' + (e.clientX - r.left - r.width / 2) * .18 + 'px,' + (e.clientY - r.top - r.height / 2) * .28 + 'px)'; });
       b.addEventListener('pointerleave', function () { b.style.transform = ''; });
     });
   }
@@ -106,7 +106,7 @@
   }
   words();
 
-  $$('.hero').forEach(function (h) { h.addEventListener('pointermove', function (e) { var r = h.getBoundingClientRect(); h.style.setProperty('--mx', ((e.clientX - r.left) / r.width - .5).toFixed(3)); h.style.setProperty('--my', ((e.clientY - r.top) / r.height - .5).toFixed(3)); }, { passive: true }); });
+  $$('.hero').forEach(function (h) { h.addEventListener('pointermove', function (e) { if (e.pointerType === 'touch') return; var r = h.getBoundingClientRect(); h.style.setProperty('--mx', ((e.clientX - r.left) / r.width - .5).toFixed(3)); h.style.setProperty('--my', ((e.clientY - r.top) / r.height - .5).toFixed(3)); }, { passive: true }); });
 
   /* ---------- theme switcher + 3D switch ---------- */
   var THEMES = [['night', 'Night Kitchen', 'Deep green, gold and saffron ink', 'linear-gradient(135deg,#0f1f18,#d9b45f)'], ['sunrise', 'Saffron Sunrise', 'Warm cream and marigold (light)', 'linear-gradient(135deg,#fff1dc,#f08c1a)'],
