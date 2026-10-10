@@ -1,7 +1,7 @@
 # Heavenly EcoServe website
 
 Fresh Indian Flavours, Delivered Daily. Static website (no server code, no database) for Hostinger shared hosting.
-Last built: 10 Oct 2026 18:09
+Last built: 10 Oct 2026 21:28
 
 ## Put it on Hostinger (Git, recommended)
 1. hPanel > **Websites > Manage > Advanced > Git**.
