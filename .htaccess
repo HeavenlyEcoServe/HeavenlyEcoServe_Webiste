@@ -15,6 +15,13 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 RewriteRule ^(build\.js|gen_art\.js|sync_prices\.py|config\.json|prices\.json|.*\.py|.*\.md)$ - [F,L]
 </IfModule>
 
+# clean addresses: /order-confirmation -> order-confirmation.html
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^([A-Za-z0-9_-]+)$ $1.html [L]
+
 # Compression
 <IfModule mod_deflate.c>
 AddOutputFilterByType DEFLATE text/html text/css application/javascript text/javascript application/json image/svg+xml application/manifest+json

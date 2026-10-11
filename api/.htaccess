@@ -1,0 +1,8 @@
+# Only the endpoints can be opened from the web; helper files cannot.
+<FilesMatch "^(_lib|mail|catalog)\.php$">
+  Require all denied
+</FilesMatch>
+Options -Indexes
+<IfModule mod_headers.c>
+  Header set Cache-Control "no-store"
+</IfModule>

@@ -294,3 +294,22 @@ html{overflow-x:clip}body{overflow-x:hidden;max-width:100%}
 }
 
 @media(pointer:coarse),(max-width:860px){.themebtn,.ctl .themebtn{width:42px!important;height:42px!important;min-width:42px;font-size:1.2rem}}
+
+/* fresh daily vs frozen */
+.freshband{display:flex;gap:14px;align-items:center;margin:0 0 22px;padding:14px 18px;border:1px solid rgba(var(--gold-rgb),.4);border-radius:16px;background:linear-gradient(100deg,rgba(var(--hot-rgb),.14),rgba(var(--cool-rgb),.1))}
+.freshband p{margin:0;color:var(--cream);font-size:.95rem;line-height:1.5}.freshband b{color:var(--gold2)}.fb-i{font-size:1.6rem;color:var(--hot-rgb);color:var(--saffron)}
+.fresh-tag{margin:2px 0 6px;font-size:.78rem;font-weight:600;letter-spacing:.04em;color:var(--saffron)}.fresh-tag.f{color:#8fd8ff}
+.badge.frz{background:linear-gradient(135deg,#bfe9ff,#6cc3f2);color:#06293d}
+.fresh-wrap{padding-top:26px;padding-bottom:6px;position:relative;z-index:2}
+
+/* basket: pay by card (primary) */
+.dpay{display:block;width:100%;margin-top:16px;padding:14px 18px;border-radius:99px;text-align:center;font-weight:700;border:0;cursor:pointer;touch-action:manipulation}
+.dpay small{display:block;font-weight:500;font-size:.72rem;opacity:.85;margin-top:3px;letter-spacing:.02em}
+.dpay.busy{opacity:.7;cursor:progress}.dpay.busy .dpay-t::after{content:" 6"}
+.dpay[disabled]{pointer-events:none}
+.dsecure{margin:8px 0 0;text-align:center;font-size:.78rem;color:var(--mut)}
+.dor{display:flex;align-items:center;gap:10px;margin:12px 0 4px;color:var(--mut);font-size:.8rem}.dor::before,.dor::after{content:"";flex:1;height:1px;background:rgba(var(--text-rgb),.2)}
+/* order result pages */
+.oc-card{max-width:640px;margin:0 auto;padding:30px;border:1px solid rgba(var(--gold-rgb),.35);border-radius:var(--radius);background:rgba(var(--card-rgb),.7)}
+.oc-ref{display:inline-block;margin:8px 0 0;padding:6px 14px;border-radius:99px;background:rgba(var(--gold-rgb),.2);color:var(--gold2);font-weight:700}
+.oc-steps{list-style:none;margin:20px 0;padding:0;display:grid;gap:10px}.oc-steps li{display:flex;gap:12px;align-items:center}.oc-steps b{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--gold);color:var(--on-gold)}

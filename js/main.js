@@ -79,7 +79,8 @@
   });
 
   /* ---------- Basket ---------- */
-  var cart = {};
+  var cart = {}, skus = {};
+  try { skus = JSON.parse(localStorage.getItem('he_cart_sku') || '{}'); } catch (e) {}
   try { cart = JSON.parse(localStorage.getItem('he_cart') || '{}'); } catch (e) {}
   var count = document.getElementById('cartcount'), list = document.getElementById('dlist'),
       drawer = document.getElementById('drawer'), scrim = document.getElementById('scrim');
@@ -124,16 +125,30 @@
   var dc = document.getElementById('dclose'); if (dc) dc.addEventListener('click', function () { openDrawer(false); });
   if (scrim) scrim.addEventListener('click', function () { openDrawer(false); });
   addEventListener('keydown', function (e) { if (e.key === 'Escape') openDrawer(false); });
-  var send = document.getElementById('dsend');
-  if (send) send.addEventListener('click', function () {
-    var ks = Object.keys(cart); if (!ks.length) return;
+  function details() {   // shared by "Pay by card" and "WhatsApp": reads and checks the name, postcode and notes
     var nameEl = document.getElementById('dname'), pcEl = document.getElementById('dpc'), noteEl = document.getElementById('dnote'), warn = document.getElementById('dwarn');
     var nm = (nameEl.value || '').trim().replace(/\s+/g, ' '), pc = (pcEl.value || '').trim(), note = (noteEl.value || '').trim().replace(/\s+/g, ' ');
     var addr = window.HE_ADDR ? HE_ADDR.value(pcEl) : pc, bad = '';
-    if (!nm) { bad = 'Please add your name so we deliver to the right person.'; nameEl.focus(); }
-    else if (!pc) { bad = 'Please add your delivery postcode.'; pcEl.focus(); }
+    if (!nm) { bad = 'Please add your name so we deliver to the right person.'; nameEl.focus(); } else if (!pc) { bad = 'Please add your delivery postcode.'; pcEl.focus(); }
     [nameEl, pcEl].forEach(function (el) { el.addEventListener('input', function () { if (warn) warn.hidden = true; }, { once: true }); });
-    if (warn) { warn.textContent = bad; warn.hidden = !bad; } if (bad) return;
+    if (warn) { warn.textContent = bad; warn.hidden = !bad; }
+    return bad ? null : { nm: nm, pc: pc, note: note, addr: addr, warn: warn };
+  }
+  var pay = document.getElementById('dpay');
+  if (pay) pay.addEventListener('click', function () {
+    var ks = Object.keys(cart); if (!ks.length) return; var d = details(); if (!d) return;
+    var items = [], missing = false; ks.forEach(function (k) { if (skus[k]) items.push({ sku: skus[k], qty: cart[k] }); else missing = true; });
+    function fail(msg) { d.warn.textContent = msg; d.warn.hidden = false; pay.disabled = false; pay.classList.remove('busy'); }
+    if (missing || !items.length) return fail('Please remove and re-add the items in your basket, then try again.');
+    pay.disabled = true; pay.classList.add('busy');
+    fetch('api/checkout.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ items: items, name: d.nm, postcode: d.pc.toUpperCase(), address: d.addr, note: d.note }) })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (x) { if (x.ok && x.j.url && /^https:\/\/checkout\.stripe\.com\//.test(x.j.url)) { location.href = x.j.url; } else fail(x.j.error || 'We could not start the payment. Please try again or use WhatsApp.'); })
+      .catch(function () { fail('No connection. Please try again, or order on WhatsApp.'); });
+  });
+  var send = document.getElementById('dsend');
+  if (send) send.addEventListener('click', function () {
+    var ks = Object.keys(cart); if (!ks.length) return; var d = details(); if (!d) return; var nm = d.nm, pc = d.pc, note = d.note, addr = d.addr;
     var s = sums(), msg = 'Hello Heavenly EcoServe, I would like to order:\n' + ks.map(function (k) { var p = priceOf(k); return '- ' + cart[k] + ' x ' + k + (p ? ' = ' + money(cart[k] * p) : ''); }).join('\n') +
       '\n\nSubtotal: ' + money(s.sub) + (s.del === null ? '' : '\nDelivery: ' + (s.del === 0 ? 'FREE' : money(s.del))) + '\nTotal: ' + money(s.tot) +
       '\n\nName: ' + nm + '\nDelivery address: ' + addr + (note ? '\nDriver instructions: ' + note : '') + '\n\nAllergies / notes: ';
@@ -153,7 +168,7 @@
   var toast = document.getElementById('toast'), tt;
   document.querySelectorAll('.add').forEach(function (b) {
     b.addEventListener('click', function () {
-      var name = b.dataset.item; cart[name] = (cart[name] || 0) + 1; render();
+      var name = b.dataset.item; cart[name] = (cart[name] || 0) + 1; if (b.dataset.sku) { skus[name] = b.dataset.sku; try { localStorage.setItem('he_cart_sku', JSON.stringify(skus)); } catch (e) {} } render();
       var r = b.getBoundingClientRect(); sparkle(r.left + r.width / 2, r.top + r.height / 2);
       if (toast) {
         toast.querySelector('b').textContent = name + ' added';
