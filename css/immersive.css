@@ -261,3 +261,22 @@ html.has3d section.dark{backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3
 @media(max-width:860px){.spot:has(.tfv){grid-template-columns:1fr}}
 
 .tfv-s[src*="family"]{object-position:47% 55%}
+
+/* basket: delivery details */
+#drawer label{display:block;margin:12px 0 4px;font-size:.84rem;font-weight:600;color:var(--cream)}#drawer label small{font-weight:400;color:var(--mut)}.req{color:var(--saffron)}
+#drawer input,#drawer textarea{width:100%;font:inherit;color:var(--cream);background:var(--input);border:1px solid rgba(var(--text-rgb),.2);border-radius:10px;padding:10px 12px}
+#drawer textarea{resize:vertical;min-height:58px}
+#drawer input:focus,#drawer textarea:focus{outline:2px solid var(--gold);outline-offset:1px}
+.dwarn{margin:8px 0 0;color:#ff8a7a;font-size:.86rem;font-weight:600}
+/* postcode finder */
+.addr{margin:8px 0 2px;font-size:.84rem;line-height:1.45;color:var(--mut)}
+.addr .addr-s{margin:0;padding:8px 12px;border-radius:10px;background:rgba(var(--gold-rgb),.1);border:1px solid rgba(var(--gold-rgb),.3);color:var(--cream)}
+.addr.ok .addr-s{background:rgba(var(--cool-rgb),.12);border-color:rgba(var(--cool-rgb),.45)}
+.addr.far .addr-s{background:rgba(255,157,46,.14);border-color:rgba(255,157,46,.55)}
+.addr.bad .addr-s{background:rgba(255,100,80,.12);border-color:rgba(255,100,80,.5)}
+.addr.wait .addr-s{opacity:.75}
+.addr-l{display:block;margin-top:10px!important}.addr-row{display:flex;gap:8px;align-items:center;margin-top:6px;flex-wrap:wrap}
+.addr-line{flex:0 0 120px;width:120px!important}.addr-st{color:var(--cream);font-weight:600}
+.addr-pick{margin-top:6px}.addr-hint{display:block;margin-top:6px}
+.addr-sug{list-style:none;margin:4px 0 0;padding:4px;border-radius:12px;background:var(--surface2);border:1px solid rgba(var(--gold-rgb),.4);box-shadow:0 14px 36px rgba(0,0,0,.4);position:relative;z-index:5}
+.addr-sug[hidden]{display:none}.addr-sug li{padding:9px 12px;border-radius:8px;cursor:pointer;color:var(--cream);font-weight:600}.addr-sug li:hover,.addr-sug li.on{background:rgba(var(--gold-rgb),.25)}

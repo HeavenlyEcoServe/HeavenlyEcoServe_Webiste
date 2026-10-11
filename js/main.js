@@ -127,9 +127,16 @@
   var send = document.getElementById('dsend');
   if (send) send.addEventListener('click', function () {
     var ks = Object.keys(cart); if (!ks.length) return;
-    var pc = (document.getElementById('dpc').value || '').trim();
+    var nameEl = document.getElementById('dname'), pcEl = document.getElementById('dpc'), noteEl = document.getElementById('dnote'), warn = document.getElementById('dwarn');
+    var nm = (nameEl.value || '').trim().replace(/\s+/g, ' '), pc = (pcEl.value || '').trim(), note = (noteEl.value || '').trim().replace(/\s+/g, ' ');
+    var addr = window.HE_ADDR ? HE_ADDR.value(pcEl) : pc, bad = '';
+    if (!nm) { bad = 'Please add your name so we deliver to the right person.'; nameEl.focus(); }
+    else if (!pc) { bad = 'Please add your delivery postcode.'; pcEl.focus(); }
+    [nameEl, pcEl].forEach(function (el) { el.addEventListener('input', function () { if (warn) warn.hidden = true; }, { once: true }); });
+    if (warn) { warn.textContent = bad; warn.hidden = !bad; } if (bad) return;
     var s = sums(), msg = 'Hello Heavenly EcoServe, I would like to order:\n' + ks.map(function (k) { var p = priceOf(k); return '- ' + cart[k] + ' x ' + k + (p ? ' = ' + money(cart[k] * p) : ''); }).join('\n') +
-      '\n\nSubtotal: ' + money(s.sub) + (s.del === null ? '' : '\nDelivery: ' + (s.del === 0 ? 'FREE' : money(s.del))) + '\nTotal: ' + money(s.tot) + '\n\nDelivery postcode: ' + pc;
+      '\n\nSubtotal: ' + money(s.sub) + (s.del === null ? '' : '\nDelivery: ' + (s.del === 0 ? 'FREE' : money(s.del))) + '\nTotal: ' + money(s.tot) +
+      '\n\nName: ' + nm + '\nDelivery address: ' + addr + (note ? '\nDriver instructions: ' + note : '') + '\n\nAllergies / notes: ';
     location.href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(msg);   // same-tab: avoids iOS pop-up blocking
   });
 
