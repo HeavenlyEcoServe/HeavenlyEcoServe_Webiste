@@ -259,3 +259,5 @@ html.has3d section.dark{backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3
 .inside{width:min(100%,420px);margin:0 auto;border-radius:var(--radius);border:1px solid rgba(var(--gold-rgb),.35);box-shadow:0 30px 80px rgba(0,0,0,.45);background:#fff}
 .spot:has(.tfv){grid-template-columns:minmax(0,1fr) minmax(0,.8fr)}
 @media(max-width:860px){.spot:has(.tfv){grid-template-columns:1fr}}
+
+.tfv-s[src*="family"]{object-position:47% 55%}
