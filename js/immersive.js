@@ -124,7 +124,7 @@
     var tb = document.createElement('button'); tb.className = 'themebtn'; tb.type = 'button'; tb.setAttribute('aria-label', 'Change theme'); tb.setAttribute('aria-expanded', 'false'); tb.innerHTML = '&#9680;'; cartWrap.insertBefore(tb, cartWrap.firstChild);
     var pop = document.createElement('div'); pop.id = 'themepop'; pop.setAttribute('role', 'dialog'); pop.setAttribute('aria-label', 'Choose a theme');
     pop.innerHTML = '<h4>Choose your mood</h4>' + THEMES.map(function (t) { return '<button class="sw" type="button" data-t="' + t[0] + '" aria-pressed="false"><i style="background:' + t[3] + '"></i><span><b>' + t[1] + '</b><small>' + t[2] + '</small></span></button>'; }).join('') +
-      '<div class="tgl"><span>Live 3D scene</span><button type="button" id="t3d" aria-pressed="' + (lsGet('he_3d') !== 'off') + '" aria-label="Toggle 3D scene"></button></div>';
+      '<div class="tgl"><span>Live photo scene</span><button type="button" id="t3d" aria-pressed="' + (lsGet('he_3d') !== 'off') + '" aria-label="Toggle live photo scene"></button></div>';
     document.body.appendChild(pop);
     tb.onclick = function (e) { e.stopPropagation(); var o = pop.classList.toggle('open'); tb.setAttribute('aria-expanded', o); };
     pop.onclick = function (e) { e.stopPropagation(); var b = e.target.closest('.sw'); if (b) applyTheme(b.dataset.t, true); var t3 = e.target.closest('#t3d'); if (t3) { var on = t3.getAttribute('aria-pressed') !== 'true'; t3.setAttribute('aria-pressed', on); lsSet('he_3d', on ? 'on' : 'off'); dispatchEvent(new Event('he3d')); } };

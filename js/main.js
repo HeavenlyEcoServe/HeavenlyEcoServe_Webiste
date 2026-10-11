@@ -86,6 +86,14 @@
   function total() { return Object.keys(cart).reduce(function (n, k) { return n + cart[k]; }, 0); }
   function save() { try { localStorage.setItem('he_cart', JSON.stringify(cart)); } catch (e) {} }
   function esc(s) { return s.replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function priceOf(k) { var m = String(k).match(/£\s*(\d+(?:\.\d{1,2})?)\s*$/); return m ? parseFloat(m[1]) : 0; }
+  function money(n) { return '£' + (Math.round(n * 100) / 100).toFixed(2); }
+  function sums() {
+    var sub = 0; Object.keys(cart).forEach(function (k) { sub += cart[k] * priceOf(k); }); sub = Math.round(sub * 100) / 100;
+    var fee = parseFloat(document.body.dataset.fee), free = parseFloat(document.body.dataset.free), del = null, hint = '';
+    if (!isNaN(fee) && sub > 0) { if (!isNaN(free) && sub > free) del = 0; else { del = fee; if (!isNaN(free)) hint = 'Spend ' + money(Math.max(free - sub, 0.01)) + ' more for free delivery.'; } }
+    return { sub: sub, del: del, hint: hint, tot: Math.round((sub + (del || 0)) * 100) / 100 };
+  }
   function render() {
     if (count) count.textContent = total();
     if (!list) return;
@@ -93,6 +101,13 @@
     list.innerHTML = ks.length ? ks.map(function (k) {
       return '<li><span>' + esc(k) + '</span><span class="q"><button data-d="-1" data-k="' + esc(k) + '" aria-label="Remove one ' + esc(k) + '">&minus;</button><b>' + cart[k] + '</b><button data-d="1" data-k="' + esc(k) + '" aria-label="Add one ' + esc(k) + '">+</button></span></li>';
     }).join('') : '<li class="empty">Your basket is empty. Add something delicious.</li>';
+    var box = document.getElementById('dsum');
+    if (box) {
+      if (!ks.length) box.hidden = true;
+      else { var s = sums(); box.hidden = false;
+        box.innerHTML = '<div><span>Subtotal</span><b>' + money(s.sub) + '</b></div>' + (s.del === null ? '<div><span>Delivery</span><b>Confirmed on WhatsApp</b></div>' : '<div><span>Delivery</span><b>' + (s.del === 0 ? 'FREE' : money(s.del)) + '</b></div>') +
+          '<div class="t"><span>Total</span><b>' + money(s.tot) + '</b></div>' + (s.hint ? '<p>' + s.hint + '</p>' : ''); }
+    }
     save();
   }
   if (list) list.addEventListener('click', function (e) {
@@ -113,7 +128,8 @@
   if (send) send.addEventListener('click', function () {
     var ks = Object.keys(cart); if (!ks.length) return;
     var pc = (document.getElementById('dpc').value || '').trim();
-    var msg = 'Hello Heavenly EcoServe, I would like to order:\n' + ks.map(function (k) { return '- ' + cart[k] + ' x ' + k; }).join('\n') + '\n\nDelivery postcode: ' + pc;
+    var s = sums(), msg = 'Hello Heavenly EcoServe, I would like to order:\n' + ks.map(function (k) { var p = priceOf(k); return '- ' + cart[k] + ' x ' + k + (p ? ' = ' + money(cart[k] * p) : ''); }).join('\n') +
+      '\n\nSubtotal: ' + money(s.sub) + (s.del === null ? '' : '\nDelivery: ' + (s.del === 0 ? 'FREE' : money(s.del))) + '\nTotal: ' + money(s.tot) + '\n\nDelivery postcode: ' + pc;
     location.href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(msg);   // same-tab: avoids iOS pop-up blocking
   });
 
