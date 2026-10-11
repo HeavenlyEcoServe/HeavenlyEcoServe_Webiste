@@ -21,7 +21,7 @@
   var page = null, heroes = [];
 
   function mkImg(name, z) {
-    var img = D.createElement('img'); img.src = 'media/fly/' + name + '.webp'; img.alt = ''; img.decoding = 'async'; img.draggable = false;
+    var img = D.createElement('img'); img.src = 'media/fly/' + name + '.webp?v=' + (D.body.dataset.v || ''); img.alt = ''; img.decoding = 'async'; img.draggable = false;
     if (z < -250) img.style.filter = 'drop-shadow(0 16px 20px rgba(0,0,0,.35))';
     return img;
   }

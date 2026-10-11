@@ -28,7 +28,7 @@
     var n = String(name || '').toLowerCase(), hit = null;
     GUESS.some(function (g) { if (g[0].test(n)) { hit = g[1]; return true; } return false; });
     var want = 'media/photos/' + (hit || 'snacks') + '.jpg';
-    return (D.photos || []).indexOf(want) >= 0 ? want : ((D.photos || [])[0] || '');
+    var all = D.photos || [], got = all.filter(function (p) { return p.split('?')[0] === want; })[0]; return got || all[0] || '';
   }
   /* ---------------- state ---------------- */
   var saved = load() || {};
@@ -78,7 +78,7 @@
   /* Photos: normally the website's own files. When the page is opened straight from a file, browsers refuse to export a canvas that
      used files from disk, so the embedded copies in js/share-photos.js (data: addresses) are used instead. */
   var FILE = location.protocol === 'file:', BLOCK = false;
-  function photoSrc(path) { if (!path) return null; if (path.slice(0, 5) === 'data:') return path; if (BLOCK) return null; if (FILE) return (window.HE_PHOTOS && window.HE_PHOTOS[path]) || null; return path; }
+  function photoSrc(path) { if (!path) return null; if (path.slice(0, 5) === 'data:') return path; if (BLOCK) return null; if (FILE) return (window.HE_PHOTOS && window.HE_PHOTOS[path.split('?')[0]]) || null; return path; }
   function loadImg(path) { var src = photoSrc(path); if (!src) return Promise.resolve(null); return cache[src] || (cache[src] = new Promise(function (res) { var i = new Image(); i.onload = function () { res(i); }; i.onerror = function () { res(null); }; i.src = src; })); }
   function loadEmbedded() {
     if (!FILE || window.HE_PHOTOS) return Promise.resolve();

@@ -280,3 +280,17 @@ html.has3d section.dark{backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3
 .addr-pick{margin-top:6px}.addr-hint{display:block;margin-top:6px}
 .addr-sug{list-style:none;margin:4px 0 0;padding:4px;border-radius:12px;background:var(--surface2);border:1px solid rgba(var(--gold-rgb),.4);box-shadow:0 14px 36px rgba(0,0,0,.4);position:relative;z-index:5}
 .addr-sug[hidden]{display:none}.addr-sug li{padding:9px 12px;border-radius:8px;cursor:pointer;color:var(--cream);font-weight:600}.addr-sug li:hover,.addr-sug li.on{background:rgba(var(--gold-rgb),.25)}
+
+/* phones and tablets: no sideways wobble, bigger tap targets, mood menu always inside the screen */
+html{overflow-x:clip}body{overflow-x:hidden;max-width:100%}
+@media(pointer:coarse),(max-width:860px){
+  #themepop{position:fixed;top:calc(64px + env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));left:auto;width:min(340px,calc(100vw - 24px));max-height:calc(100dvh - 90px - env(safe-area-inset-top) - env(safe-area-inset-bottom));overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+  #themepop .sw{min-height:56px}
+  #themepop .tgl{min-height:56px;padding-block:6px}
+  .tgl button{width:58px;height:34px;touch-action:manipulation}
+  .tgl button::after{top:4px;left:4px;width:26px;height:26px}
+  .tgl button[aria-pressed=true]::after{left:28px}
+  .themebtn{margin-inline:2px}
+}
+
+@media(pointer:coarse),(max-width:860px){.themebtn,.ctl .themebtn{width:42px!important;height:42px!important;min-width:42px;font-size:1.2rem}}
