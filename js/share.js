@@ -167,7 +167,11 @@
     footer(c, th, W, P, y0 + bodyH + 36, null);
   }
   function drawLayers(items, logo, imgs, th) {
-    var W = 1080, P = 60, n = items.length, CH = 196, GY = 48, STAG = 44, headH = 905;
+    var W = 1080, P = 60, n = items.length, CH = 196, GY = 48, STAG = 44;
+    var c0 = document.createElement('canvas').getContext('2d'), ttl = S.title || autoTitle(), tfs = 118, twords = ttl.split(/\s+/);
+    c0.font = '700 ' + tfs + 'px ' + SERIF; while (Math.max.apply(null, twords.map(function (w) { return c0.measureText(w).width; })) > 470 && tfs > 56) { tfs -= 4; c0.font = '700 ' + tfs + 'px ' + SERIF; }
+    var tlines = lines(c0, ttl, 520, 3), tyEnd = 340 + (tlines.length - 1) * tfs * 0.98 + 130;      // bottom of the headline + "N dishes / homemade with love"
+    var cy2 = Math.max(610, tyEnd + 40), headH = Math.max(905, cy2 + 330);
     var rows = Math.ceil(n / 2), bodyH = n ? rows * (CH + GY) + (n > 1 ? STAG : 0) : 0, H = Math.max(1350, headH + bodyH + 360);
     cv.width = W; cv.height = H; var c = cv.getContext('2d'); c.textBaseline = 'alphabetic';
     var pics = imgs.filter(Boolean), names = items.length ? items : [{ name: 'Menu' }];
@@ -179,17 +183,17 @@
     c.fillStyle = hexA(th.ink, 0.07); c.fillText(ghost, -14, 640);
     c.strokeStyle = hexA(th.gold, 0.28); c.lineWidth = 3; [250, 340, 430].forEach(function (r, k) { c.globalAlpha = 1 - k * 0.28; c.beginPath(); c.arc(W - 40, 420, r, 0, 7); c.stroke(); }); c.globalAlpha = 1;
     /* layer 3: photo collage (tilted card, two circles, small tile) */
-    shape(c, th, P0, names[0].name.charAt(0), 470, 270, 540, 440, 44, { rot: 3.2, ring: th.tone === 'light' ? '#ffffff' : '#fffaf0', ringW: 10, blur: 46, dy: 26, sh: 0.6 });
-    shape(c, th, P1, (names[1] || names[0]).name.charAt(0), 850, 690, 190, 190, 95, { ring: th.gold, ringW: 8 });
-    shape(c, th, P2, (names[2] || names[0]).name.charAt(0), 70, 610, 280, 280, 140, { ring: th.gold, ringW: 9, blur: 40, dy: 22 });
-    shape(c, th, P3, (names[3] || names[0]).name.charAt(0), 360, 735, 170, 170, 34, { rot: -7, ring: '#fffaf0', ringW: 7 });
+    var tall = P0 && P0.height > P0.width * 1.15, hw = tall ? 430 : 540, hh = tall ? Math.min(570, cy2 + 140 - 250) : 440, hx = tall ? 548 : 470;
+    shape(c, th, P0, names[0].name.charAt(0), hx, 250, hw, hh, 44, { rot: 3.2, ring: th.tone === 'light' ? '#ffffff' : '#fffaf0', ringW: 10, blur: 46, dy: 26, sh: 0.6 });
+    shape(c, th, P1, (names[1] || names[0]).name.charAt(0), 850, Math.max(690, 250 + hh + 20), 190, 190, 95, { ring: th.gold, ringW: 8 });
+    shape(c, th, P2, (names[2] || names[0]).name.charAt(0), 70, cy2, 280, 280, 140, { ring: th.gold, ringW: 9, blur: 40, dy: 22 });
+    shape(c, th, P3, (names[3] || names[0]).name.charAt(0), 372, cy2 + 120, 170, 170, 34, { rot: -7, ring: '#fffaf0', ringW: 7 });
     /* layer 4: frame, logo, words */
     c.strokeStyle = th.frame; c.lineWidth = 2; rr(c, 22, 22, W - 44, H - 44, 34); c.stroke();
     if (logo) { var lw = 360, lh = lw * logo.height / logo.width; c.drawImage(logo, P, 58, lw, lh); } else textLogo(c, th, P);
     c.fillStyle = th.gold; c.font = '600 22px ' + SANS; spaced(c, '6px'); c.fillText('FROM OUR LEICESTER KITCHEN', P, 232); spaced(c, '0px');
-    var fs = 118, words = title.split(/\s+/); function widest() { return Math.max.apply(null, words.map(function (w) { return c.measureText(w).width; })); }
-    c.font = '700 ' + fs + 'px ' + SERIF; while (widest() > 470 && fs > 56) { fs -= 4; c.font = '700 ' + fs + 'px ' + SERIF; }
-    var tl = lines(c, title, 520, 3); c.save(); c.shadowColor = th.tone === 'light' ? 'rgba(255,255,255,.7)' : 'rgba(0,0,0,.7)'; c.shadowBlur = 26; c.shadowOffsetY = 4; c.fillStyle = th.ink;
+    var fs = tfs; c.font = '700 ' + fs + 'px ' + SERIF;
+    var tl = tlines; c.save(); c.shadowColor = th.tone === 'light' ? 'rgba(255,255,255,.7)' : 'rgba(0,0,0,.7)'; c.shadowBlur = 26; c.shadowOffsetY = 4; c.fillStyle = th.ink;
     tl.forEach(function (l, k) { c.fillText(l, P, 340 + k * fs * 0.98); }); c.restore();
     var ty = 340 + (tl.length - 1) * fs * 0.98; c.fillStyle = th.gold; c.fillRect(P, ty + 30, 150, 6);
     c.fillStyle = th.ink; c.globalAlpha = 0.9; c.font = '600 30px ' + SANS; c.fillText(n ? n + (n === 1 ? ' dish' : ' dishes') : 'Pick your dishes', P, ty + 84); c.font = '400 25px ' + SANS; c.globalAlpha = 0.75; c.fillText('homemade with love', P, ty + 120); c.globalAlpha = 1;

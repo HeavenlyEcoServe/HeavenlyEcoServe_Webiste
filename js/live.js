@@ -15,7 +15,7 @@
   function rnd(a, b) { return a + Math.random() * (b - a); }
 
   var POOL = [['samosa-plate', 300], ['tiffin-left', 190], ['pav-bhaji', 280], ['tiffin-right', 270], ['chilli-paneer', 250], ['thepla-plate', 270], ['chaat-plate', 290], ['aloo-paratha', 230], ['pani-puri', 270], ['roti-plate', 270], ['paratha-plate', 250]];
-  var ASP = { 'samosa-plate': 0.69, 'aloo-paratha': 0.71, 'chaat-plate': 0.55, 'chilli-paneer': 0.67, 'paratha-plate': 0.6, 'pani-puri': 0.575, 'pav-bhaji': 0.49, 'thepla-plate': 0.58, 'roti-plate': 0.61, 'tiffin-left': 1.51, 'tiffin-right': 0.61 };   // height / width of each cut-out
+  var ASP = { 'samosa-plate': 0.69, 'aloo-paratha': 0.71, 'chaat-plate': 0.55, 'chilli-paneer': 0.67, 'paratha-plate': 0.6, 'pani-puri': 0.575, 'pav-bhaji': 0.49, 'thepla-plate': 0.58, 'roti-plate': 0.61, 'tiffin-left': 1.87, 'tiffin-right': 2.19 };   // height / width of each cut-out
   var DEPTHS = [160, -380, 60, -160, 220, -300, 0, -80, 120, -240, 30];     // translateZ in px (positive = nearer the viewer)
   var W = innerWidth, H = innerHeight, tx = 0, ty = 0, mx = 0, my = 0, sy = window.pageYOffset || 0, vel = 0, last = sy, t0 = performance.now(), running = false;
   var page = null, heroes = [];

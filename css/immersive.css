@@ -227,10 +227,10 @@ html.has3d section.dark{backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3
 .fly img{display:block;width:100%;height:auto;filter:drop-shadow(0 26px 30px rgba(0,0,0,.5));-webkit-user-drag:none;user-select:none}
 
 /* tiffin viewer: layered pop-out */
-.tfv{--px:0;--py:0;--drag:0px;position:relative;aspect-ratio:2000/1116;margin-bottom:38px;cursor:grab;touch-action:pan-y;perspective:1100px;-webkit-user-select:none;user-select:none;outline:none}
+.tfv{--px:0;--py:0;--drag:0px;position:relative;aspect-ratio:662/1116;width:min(100%,400px);margin:0 auto 38px;cursor:grab;touch-action:pan-y;perspective:1100px;-webkit-user-select:none;user-select:none;outline:none}
 .tfv:active{cursor:grabbing}
 .tfv:focus-visible{outline:2px solid var(--gold);outline-offset:6px;border-radius:var(--radius)}
-.tfv-stage{position:absolute;inset:0 4% 0 0;transform-style:preserve-3d;transform:rotateY(calc(var(--px)*9deg)) rotateX(calc(var(--py)*-7deg));transition:transform .2s ease-out}
+.tfv-stage{position:absolute;inset:0 5% 0 0;transform-style:preserve-3d;transform:rotateY(calc(var(--px)*9deg)) rotateX(calc(var(--py)*-7deg));transition:transform .2s ease-out}
 .tfv-s{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:var(--radius);border:1px solid rgba(var(--gold-rgb),.35);box-shadow:0 30px 80px rgba(0,0,0,.5);transition:transform .8s cubic-bezier(.2,.8,.2,1),opacity .6s;pointer-events:none;-webkit-user-drag:none;opacity:0}
 .tfv-layered{border:0;box-shadow:none;transform-style:preserve-3d;overflow:visible;background:none;object-fit:initial}
 .tfv-layered .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:var(--radius);border:1px solid rgba(var(--gold-rgb),.35);box-shadow:0 30px 80px rgba(0,0,0,.55);filter:saturate(1.05)}
@@ -246,8 +246,6 @@ html.has3d section.dark{backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3
 .tfv-hint{position:absolute;left:46%;bottom:-34px;transform:translateX(-50%);z-index:6;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mut);white-space:nowrap}
 .split.wide{grid-template-columns:minmax(0,.9fr) minmax(0,1.3fr)}
 @media(max-width:860px){.split.wide{grid-template-columns:1fr}}
-.spot:has(.tfv){grid-template-columns:minmax(0,.85fr) minmax(0,1.35fr)}
-@media(max-width:860px){.spot:has(.tfv){grid-template-columns:1fr}}
 
 /* hero floating layer: between the hero photo/wash and the headline; a living colour glow plus real food */
 .hflies{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden;perspective:900px;perspective-origin:50% 45%}
@@ -257,3 +255,7 @@ html.has3d section.dark{backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3
 .hflies::after{left:-18%;bottom:-30%;background:radial-gradient(circle,rgba(var(--cool-rgb),.42),rgba(var(--cool-rgb),0) 68%);animation:aurB 27s ease-in-out infinite alternate}
 .hflies .fly{z-index:1}
 @media(prefers-reduced-motion:reduce){.hflies::before,.hflies::after{animation:none}}
+
+.inside{width:min(100%,420px);margin:0 auto;border-radius:var(--radius);border:1px solid rgba(var(--gold-rgb),.35);box-shadow:0 30px 80px rgba(0,0,0,.45);background:#fff}
+.spot:has(.tfv){grid-template-columns:minmax(0,1fr) minmax(0,.8fr)}
+@media(max-width:860px){.spot:has(.tfv){grid-template-columns:1fr}}
