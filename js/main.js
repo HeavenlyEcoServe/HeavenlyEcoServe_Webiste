@@ -100,8 +100,15 @@
     if (!list) return;
     var ks = Object.keys(cart);
     list.innerHTML = ks.length ? ks.map(function (k) {
-      return '<li><span>' + esc(k) + '</span><span class="q"><button data-d="-1" data-k="' + esc(k) + '" aria-label="Remove one ' + esc(k) + '">&minus;</button><b>' + cart[k] + '</b><button data-d="1" data-k="' + esc(k) + '" aria-label="Add one ' + esc(k) + '">+</button></span></li>';
+      var p = priceOf(k), base = k.replace(/\s*£\s*\d+(?:\.\d{1,2})?\s*$/, ''), pm = base.match(/^(.*?)\s*\(([^)]*)\)\s*$/), nm = pm ? pm[1] : base, pack = pm ? pm[2] : '', e = esc(k);
+      return '<li><div class="li-t"><b>' + esc(nm) + '</b>' + (pack ? '<small>' + esc(pack) + '</small>' : '') + (p ? '<em>' + money(p) + ' each</em>' : '') + '</div>' +
+        '<div class="li-r"><span class="q"><button data-d="-1" data-k="' + e + '" aria-label="One less ' + esc(nm) + '">&minus;</button><b>' + cart[k] + '</b><button data-d="1" data-k="' + e + '" aria-label="One more ' + esc(nm) + '">+</button></span>' +
+        '<span class="li-p">' + (p ? money(p * cart[k]) : '') + '</span><button class="li-x" data-rm="' + e + '" aria-label="Remove ' + esc(nm) + ' from basket" title="Remove">&times;</button></div></li>';
     }).join('') : '<li class="empty">Your basket is empty. Add something delicious.</li>';
+    var bar = document.getElementById('dbar'), dc = document.getElementById('dcount'), conf = document.getElementById('dconf');
+    if (bar) { bar.hidden = !ks.length; document.getElementById('dbtxt').textContent = ks.length + (ks.length === 1 ? ' item' : ' items') + ' · ' + total() + ' in total'; }
+    if (dc) dc.textContent = ks.length ? '(' + total() + ')' : '';
+    if (conf && !ks.length) conf.hidden = true;
     var box = document.getElementById('dsum');
     if (box) {
       if (!ks.length) box.hidden = true;
@@ -112,10 +119,20 @@
     save();
   }
   if (list) list.addEventListener('click', function (e) {
+    var rm = e.target.closest('button[data-rm]'); if (rm) { delete cart[rm.dataset.rm]; render(); return; }
     var b = e.target.closest('button[data-k]'); if (!b) return;
     var k = b.dataset.k; cart[k] = (cart[k] || 0) + parseInt(b.dataset.d, 10);
     if (cart[k] <= 0) delete cart[k]; render();
   });
+  var clr = document.getElementById('dclear'), cf = document.getElementById('dconf');
+  if (clr) clr.addEventListener('click', function () { if (cf) { cf.hidden = false; document.getElementById('dyes').focus(); } });
+  if (cf) {
+    document.getElementById('dno').addEventListener('click', function () { cf.hidden = true; });
+    document.getElementById('dyes').addEventListener('click', function () {
+      cart = {}; skus = {}; try { localStorage.removeItem('he_cart'); localStorage.removeItem('he_cart_sku'); } catch (e) {} cf.hidden = true; render();
+      var t = document.getElementById('toast'); if (t) { t.querySelector('b').textContent = 'Basket cleared'; t.classList.add('show'); setTimeout(function () { t.classList.remove('show'); }, 2000); }
+    });
+  }
   function openDrawer(o) {
     if (!drawer) return; drawer.classList.toggle('open', o); scrim.classList.toggle('open', o);
     drawer.setAttribute('aria-hidden', !o); document.body.style.overflow = o ? 'hidden' : '';
