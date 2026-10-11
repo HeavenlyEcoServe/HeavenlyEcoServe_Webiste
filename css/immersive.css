@@ -48,7 +48,7 @@ section.dark h2,section.dark h3{color:var(--cream)}
 section[style*="background:#fff"]{background:var(--bg2)!important}
 .trust{display:none}
 /* hero */
-.hero{min-height:100svh;background:var(--bg);overflow:hidden;align-items:flex-end;padding-bottom:max(70px,9vh)}
+.hero{min-height:100svh;background:transparent;overflow:hidden;align-items:flex-end;padding-bottom:max(70px,9vh)}
 .hero::after{background:radial-gradient(120% 80% at 20% 80%,rgba(var(--bg-rgb),.55),rgba(var(--bg-rgb),.9)),linear-gradient(180deg,rgba(var(--bg-rgb),.7),rgba(var(--bg-rgb),.2) 40%,rgba(var(--bg-rgb),.95))}
 .hero .motion{opacity:var(--hero-photo);filter:saturate(1.15) contrast(1.05)}
 .hero canvas.ink,.hero canvas.stars{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
@@ -213,11 +213,19 @@ html.has3d section.dark{backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3
 .dsum p{margin:8px 0 0;font-size:.82rem;color:var(--mut)}
 
 /* live 3D layer of real food cut-outs (replaces the drawn 3D objects) */
-#pscene{position:fixed;inset:0;z-index:3;pointer-events:none;overflow:hidden;perspective:900px;perspective-origin:50% 42%}
+#pscene{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;perspective:900px;perspective-origin:50% 42%;contain:layout paint}
 #pscene[hidden]{display:none}
-.fly{position:absolute;left:0;top:0;will-change:transform;transform-style:preserve-3d}
+.fly{position:absolute;left:0;top:0;will-change:transform,opacity;transform-style:preserve-3d}
+.fly img{transition:filter .5s ease}
+/* living gradient behind everything: slow drifting colour glows (compositor-only, cheap) */
+#pscene::before,#pscene::after{content:"";position:absolute;width:75vmax;height:75vmax;border-radius:50%;filter:blur(70px);opacity:.28;will-change:transform;pointer-events:none}
+#pscene::before{left:-25vmax;top:-20vmax;background:radial-gradient(circle,rgba(var(--hot-rgb),.42),rgba(var(--hot-rgb),0) 68%);animation:aurA 26s ease-in-out infinite alternate}
+#pscene::after{right:-28vmax;bottom:-26vmax;background:radial-gradient(circle,rgba(var(--cool-rgb),.38),rgba(var(--gold-rgb),.12) 45%,rgba(var(--cool-rgb),0) 70%);animation:aurB 31s ease-in-out infinite alternate}
+@keyframes aurA{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(18vmax,22vmax,0) scale(1.25)}}
+@keyframes aurB{from{transform:translate3d(0,0,0) scale(1.1)}to{transform:translate3d(-20vmax,-16vmax,0) scale(.9)}}
+@media(prefers-reduced-motion:reduce){#pscene::before,#pscene::after{animation:none}}
 .fly img{display:block;width:100%;height:auto;filter:drop-shadow(0 26px 30px rgba(0,0,0,.5));-webkit-user-drag:none;user-select:none}
-@media(max-width:760px){.fly{opacity:.92}}
+
 /* tiffin viewer: layered pop-out */
 .tfv{--px:0;--py:0;--drag:0px;position:relative;aspect-ratio:2000/1116;margin-bottom:38px;cursor:grab;touch-action:pan-y;perspective:1100px;-webkit-user-select:none;user-select:none;outline:none}
 .tfv:active{cursor:grabbing}
@@ -240,3 +248,12 @@ html.has3d section.dark{backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3
 @media(max-width:860px){.split.wide{grid-template-columns:1fr}}
 .spot:has(.tfv){grid-template-columns:minmax(0,.85fr) minmax(0,1.35fr)}
 @media(max-width:860px){.spot:has(.tfv){grid-template-columns:1fr}}
+
+/* hero floating layer: between the hero photo/wash and the headline; a living colour glow plus real food */
+.hflies{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden;perspective:900px;perspective-origin:50% 45%}
+.hflies[hidden]{display:none}
+.hflies::before,.hflies::after{content:"";position:absolute;width:70%;aspect-ratio:1;border-radius:50%;filter:blur(60px);opacity:.45;will-change:transform;pointer-events:none}
+.hflies::before{right:-10%;top:-15%;background:radial-gradient(circle,rgba(var(--hot-rgb),.55),rgba(var(--gold-rgb),.18) 45%,rgba(var(--hot-rgb),0) 70%);animation:aurA 22s ease-in-out infinite alternate}
+.hflies::after{left:-18%;bottom:-30%;background:radial-gradient(circle,rgba(var(--cool-rgb),.42),rgba(var(--cool-rgb),0) 68%);animation:aurB 27s ease-in-out infinite alternate}
+.hflies .fly{z-index:1}
+@media(prefers-reduced-motion:reduce){.hflies::before,.hflies::after{animation:none}}
