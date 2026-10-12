@@ -334,3 +334,14 @@ html{overflow-x:clip}body{overflow-x:hidden;max-width:100%}
 .q button{width:34px;height:34px;min-height:34px}
 @media(max-width:420px){#dlist li{flex-direction:column;gap:8px}.li-r{justify-content:space-between;width:100%}}
 @media(max-width:700px){#dlist{max-height:none!important;overflow:visible!important}.li-x{margin-right:2px}}
+
+/* social page */
+.soc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:24px}
+.soc{padding:26px;border:1px solid rgba(var(--gold-rgb),.3);border-radius:var(--radius);background:rgba(var(--card-rgb),.7)}
+.soc-h{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px}.soc-h h2{margin:0;font-size:1.5rem;flex:1}
+.soc-i{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-weight:800;color:var(--on-gold);background:linear-gradient(135deg,var(--btn1),var(--btn2));font-family:Inter,system-ui,sans-serif}
+.soc-go{padding:9px 18px;font-size:.88rem}.soc-soon{font-size:.8rem;color:var(--mut);border:1px dashed rgba(var(--text-rgb),.35);border-radius:99px;padding:6px 12px}
+.soc-b{position:relative;margin:12px 0 0;padding:14px 16px 14px;border-radius:14px;background:rgba(var(--text-rgb),.06);border:1px solid rgba(var(--text-rgb),.12)}
+.soc-l{margin:0 0 4px;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold2);font-weight:700}
+.soc-t{margin:0 0 10px;color:var(--cream);line-height:1.55;overflow-wrap:anywhere}
+.soc-copy{font:inherit;font-weight:600;font-size:.82rem;color:var(--on-gold);background:linear-gradient(135deg,var(--btn1),var(--btn2));border:0;border-radius:99px;padding:8px 16px;min-height:40px;cursor:pointer;touch-action:manipulation}
