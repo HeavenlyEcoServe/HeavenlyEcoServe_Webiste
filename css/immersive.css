@@ -345,3 +345,6 @@ html{overflow-x:clip}body{overflow-x:hidden;max-width:100%}
 .soc-l{margin:0 0 4px;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold2);font-weight:700}
 .soc-t{margin:0 0 10px;color:var(--cream);line-height:1.55;overflow-wrap:anywhere}
 .soc-copy{font:inherit;font-weight:600;font-size:.82rem;color:var(--on-gold);background:linear-gradient(135deg,var(--btn1),var(--btn2));border:0;border-radius:99px;padding:8px 16px;min-height:40px;cursor:pointer;touch-action:manipulation}
+
+/* card payment hidden until Stripe is switched on */
+.nopay .dpay,.nopay .dsecure,.nopay .dor{display:none!important}

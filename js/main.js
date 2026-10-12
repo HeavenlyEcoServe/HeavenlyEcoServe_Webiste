@@ -151,6 +151,9 @@
     if (warn) { warn.textContent = bad; warn.hidden = !bad; }
     return bad ? null : { nm: nm, pc: pc, note: note, addr: addr, warn: warn };
   }
+  // card payment only appears once Stripe is switched on for the site (keys on the server); until then the basket offers WhatsApp only
+  (function () { var box = document.getElementById('dpay'); if (!box) return; document.body.classList.add('nopay');
+    fetch('api/pay-ready.php', { cache: 'no-cache' }).then(function (r) { return r.json(); }).then(function (j) { if (j && j.ready) document.body.classList.remove('nopay'); }).catch(function () {}); })();
   var pay = document.getElementById('dpay');
   if (pay) pay.addEventListener('click', function () {
     var ks = Object.keys(cart); if (!ks.length) return; var d = details(); if (!d) return;
